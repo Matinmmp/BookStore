@@ -1,8 +1,6 @@
-import Head from 'next/head'
- 
+import Head from 'next/head';
 
-
-export default function LandingPage() {
+export default function HomePage() {
     return (
         <>
             <Head>
@@ -12,7 +10,7 @@ export default function LandingPage() {
                 <link rel="icon" href="/Images/logo2.png" />
             </Head>
 
-            <div>خانه</div>
+            <div>home</div>
         </>
     )
 }
