@@ -10,7 +10,40 @@ export default function HomePage() {
                 <link rel="icon" href="/Images/logo2.png" />
             </Head>
 
-            <div>home</div>
+            <div className='h-[50rem] '>
+                Lorem ipsum dolor sit amet.
+                Lorem ipsum dolor sit amet.
+                Lorem ipsum dolor sit amet.
+                Lorem ipsum dolor sit amet.
+                Lorem ipsum dolor sit amet.
+                Lorem ipsum dolor sit amet.
+                Lorem ipsum dolor sit amet.
+                Lorem ipsum dolor sit amet.
+                Lorem ipsum dolor sit amet.
+                Lorem ipsum dolor sit amet.
+                Lorem ipsum dolor sit amet.
+                Lorem ipsum dolor sit amet.
+                Lorem ipsum dolor sit amet.
+                Lorem ipsum dolor sit amet.
+                Lorem ipsum dolor sit amet.
+                Lorem ipsum dolor sit amet.
+                Lorem ipsum dolor sit amet.
+                Lorem ipsum dolor sit amet.
+                Lorem ipsum dolor sit amet.
+                Lorem ipsum dolor sit amet.
+                Lorem ipsum dolor sit amet.
+                Lorem ipsum dolor sit amet.
+                Lorem ipsum dolor sit amet.
+                Lorem ipsum dolor sit amet.
+                Lorem ipsum dolor sit amet.
+                Lorem ipsum dolor sit amet.
+                Lorem ipsum dolor sit amet.
+                Lorem ipsum dolor sit amet.
+                Lorem ipsum dolor sit amet.
+                Lorem ipsum dolor sit amet.
+                Lorem ipsum dolor sit amet.
+
+            </div>
         </>
     )
 }
