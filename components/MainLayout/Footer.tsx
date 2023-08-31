@@ -6,7 +6,7 @@ import {MdKeyboardArrowUp} from 'react-icons/md'
 const Footer = () => {
 
     return (
-        <footer className="footer p-8 h-[20rem] border-t-[1px]  border-gray-700 text-base-content flex flex-col justify-between w-full">
+        <footer className="footer p-8 h-[20rem] border-t-[1px] mt-8 border-gray-700 text-base-content flex flex-col justify-between w-full">
             <div className="flex items-center justify-between w-full">
                 <Link href={'/home'} className=" w-24 h-16" >
                     <Image alt="لوگو" src={'/Images/logo2.png'} width={300} height={300} className="w-full h-full" />
@@ -28,9 +28,9 @@ const Footer = () => {
                     <Link href={'/'}></Link>
                 </div>
                 <div className="w-4/12">
-                    <Map height={200} defaultCenter={[50.879, 4.6997]} defaultZoom={11}>
+                    {/* <Map height={200} defaultCenter={[50.879, 4.6997]} defaultZoom={11}>
                         <Marker width={50} anchor={[50.879, 4.6997]} />
-                    </Map>
+                    </Map> */}
                 </div>
             </div>
         </footer>

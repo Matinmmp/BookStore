@@ -1,6 +1,18 @@
 import Head from 'next/head';
+import Hero from '../../components/Home/Hero';
 
-export default function HomePage() {
+import { Product } from '@/models/Types';
+import { getAllProducts, getProductByCategoryId } from '@/services/api/product';
+import ProductsSlider from '@/components/Home/ProductsSlider';
+
+
+interface IProps {
+    productsForHero: Product[]
+    fantsyProduct: Product[]
+    horrorProduct: Product[]
+}
+
+export default function HomePage({ productsForHero, fantsyProduct, horrorProduct }: IProps) {
     return (
         <>
             <Head>
@@ -10,64 +22,32 @@ export default function HomePage() {
                 <link rel="icon" href="/Images/logo2.png" />
             </Head>
 
-            <div className=''>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p><p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p><p> Lorem ipsum dolor sit amet.</p>
-
+            <div className='p-'>
+                <Hero products={productsForHero} />
             </div>
+
+            <ProductsSlider products={fantsyProduct} title={'فانتزی'}/>
+            <ProductsSlider products={horrorProduct} title={'ترسناک'}/>
+            <ProductsSlider products={horrorProduct} title={'ترسناک'}/>
+
         </>
     )
+}
+
+
+export const getStaticProps = async () => {
+    let productsForHero = await getAllProducts();
+    productsForHero = await productsForHero.reverse().slice(0, 7);
+
+    const fantsyProduct = await getProductByCategoryId('64dd173b0e366d6edaece779', 20);
+    const horrorProduct = await getProductByCategoryId('64defdace7d0b3b42651f804', 20);
+
+    return {
+        props: {
+            productsForHero,
+            fantsyProduct,
+            horrorProduct
+
+        },
+    }
 }
