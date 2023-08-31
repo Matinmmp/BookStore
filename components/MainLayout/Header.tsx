@@ -5,7 +5,7 @@ import { BsBasket } from 'react-icons/bs';
 import { HiOutlineLogout } from 'react-icons/hi';
 import { FaBars } from 'react-icons/fa';
 import { useEffect, useState } from 'react';
-import {motion} from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 
 
 const Header = () => {
@@ -17,13 +17,9 @@ const Header = () => {
         })
     }, []);
 
-
-
-
-
     return (
-        <header className=" fixed top-0 left-0 right-0">
-            <nav className={`pt-3 px-5 backdrop-blur-3xl flex flex-col gap-2 ${visibleDownNav && 'py-3'}`}>
+        <header className=" fixed top-0 left-0 right-0 z-50">
+            <nav className={`py-3 px-5 lg:pt-3 backdrop-blur-3xl flex flex-col gap-2 z-20 ${visibleDownNav && 'py-3'}`}>
 
                 <div className="flex items-center gap-6 w-full" >
 
@@ -60,24 +56,32 @@ const Header = () => {
 
                 </div>
 
-                <motion.div layout
-                
-                 className={`py-3 flex items-center w-full ${visibleDownNav && 'hidden'}`}>
-                    <div className="flex items-center justify-start gap-1 cursor-pointer">
-                        <FaBars />
-                        <span className="text-sm">دسته بندی کتاب ها</span>
-                    </div>
-                    <div className="divider lg:divider-horizontal" style={{ marginInline: '.5rem' }}></div>
-                    <ul className="flex items-center gap-4 text-xs">
-                        <li><Link href={'/'} >آخرینها</Link></li>
-                        <li><Link href={'/'} >بالاترین امتیازها</Link></li>
-                        <li><Link href={'/'} >همه دسته بندی ها</Link></li>
-                        <li><Link href={'/'} >درباره ما</Link></li>
-                        <li><Link href={'/'} >ارتباط با ما</Link></li>
-                        <div className="divider lg:divider-horizontal" style={{ marginInline: '.5rem' }}></div>
-                        <li><Link href={'/'} >سوالی دارید؟</Link></li>
-                    </ul>
-                </motion.div>
+                <AnimatePresence>
+                    {!visibleDownNav &&
+                        <motion.div layout
+                            initial={{ y: -35 ,opacity:0}}
+                            animate={{ y: 0 ,opacity:100}}                          
+                            exit={{ y: -35,opacity:0 }}
+                            transition={{ ease: "easeOut", duration: .2 }}
+                            className="py-3 hidden lg:flex items-center w-full z-10 ">
+                            <div className="flex items-center justify-start gap-1 cursor-pointer">
+                                <FaBars />
+                                <span className="text-sm">دسته بندی کتاب ها</span>
+                            </div>
+                            <div className="divider lg:divider-horizontal" style={{ marginInline: '.5rem' }}></div>
+                            <ul className="flex items-center gap-4 text-xs">
+                                <li><Link href={'/'} >آخرینها</Link></li>
+                                <li><Link href={'/'} >بالاترین امتیازها</Link></li>
+                                <li><Link href={'/'} >همه دسته بندی ها</Link></li>
+                                <li><Link href={'/'} >درباره ما</Link></li>
+                                <li><Link href={'/'} >ارتباط با ما</Link></li>
+                                <div className="divider lg:divider-horizontal" style={{ marginInline: '.5rem' }}></div>
+                                <li><Link href={'/'} >سوالی دارید؟</Link></li>
+                            </ul>
+                        </motion.div>
+                    }
+
+                </AnimatePresence>
             </nav>
         </header>
     )
