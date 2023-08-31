@@ -1,3 +1,4 @@
+import Footer from "@/components/MainLayout/Footer";
 import Header from "@/components/MainLayout/Header";
 import { Fragment } from "react"
 
@@ -12,6 +13,7 @@ const MainLayout = ({ children }: IProps) => {
         <Fragment>
             <Header />
             {children}
+            <Footer/>
         </Fragment>
     )
 }

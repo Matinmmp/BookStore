@@ -27,19 +27,19 @@ const Header = () => {
                         <Image alt="لوگو" src={'/Images/logo2.png'} width={200} height={200} className="w-full h-full" />
                     </Link>
 
-                    <div className="flex w-full lg:w-[40rem] place-items-center bg-base-100 rounded-lg">
+                    <div className="flex w-full lg:w-[40rem] place-items-center bg-base-100 rounded-lg border-primary border-[1px]">
                         <AiOutlineSearch className="text-xl w-8" />
-                        <input type="text" placeholder="جستجو" className="input  text-sm h-10 w-full "
+                        <input type="text" placeholder="جستجو" className="input text-sm h-10 w-full "
                             style={{ border: 'none !important', outline: 'none !important' }} />
                     </div>
 
                     <div className="flex-1"></div>
 
                     <div className="hidden lg:flex items-center justify-center gap-1">
-                        <div className="rounded-lg border-[1px] border-gray-400 py-2 px-4 flex items-center gap-2">
+                        <button className="btn btn-primary flex items-center gap-2 ">
                             <HiOutlineLogout className="text-2xl" style={{ transform: 'rotateY(180deg)' }} />
                             <span className="font-semibold text-xs">ورود | ثبت‌نام</span>
-                        </div>
+                        </button>
 
                         <div className="divider lg:divider-horizontal " style={{ marginInline: '.5rem' }}></div>
 
