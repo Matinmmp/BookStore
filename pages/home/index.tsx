@@ -1,14 +1,15 @@
 import Head from 'next/head';
 import Hero from '../../components/Home/Hero';
 
+import { Product } from '@/models/Types';
+import { getAllProducts } from '@/services/api/product';
+
 
 interface IProps {
-    products: any
+    productsForHero: Product[]
 }
 
-export default function HomePage({ products }: IProps) {
-
-
+export default function HomePage({ productsForHero }: IProps) {
     return (
         <>
             <Head>
@@ -19,7 +20,7 @@ export default function HomePage({ products }: IProps) {
             </Head>
 
             <div className='p-'>
-                <Hero products={products} />
+                <Hero products={productsForHero} />
             </div>
         </>
     )
@@ -27,11 +28,12 @@ export default function HomePage({ products }: IProps) {
 
 
 export const getStaticProps = async () => {
-    const response = await fetch('http://localhost:8000/api/products?page=1&limit=20');
-    const data = await response.json();
+    let response =await getAllProducts();
+    response = await response.reverse().slice(0,7);
+
     return {
         props: {
-            products: data.data.products,
+            productsForHero: response,
         },
     }
 }
