@@ -10,7 +10,64 @@ export default function HomePage() {
                 <link rel="icon" href="/Images/logo2.png" />
             </Head>
 
-            <div>home</div>
+            <div className=''>
+               <p> Lorem ipsum dolor sit amet.</p>
+               <p> Lorem ipsum dolor sit amet.</p>
+               <p> Lorem ipsum dolor sit amet.</p>
+               <p> Lorem ipsum dolor sit amet.</p>
+               <p> Lorem ipsum dolor sit amet.</p>
+               <p> Lorem ipsum dolor sit amet.</p>
+               <p> Lorem ipsum dolor sit amet.</p>
+               <p> Lorem ipsum dolor sit amet.</p>
+               <p> Lorem ipsum dolor sit amet.</p>
+               <p> Lorem ipsum dolor sit amet.</p>
+               <p> Lorem ipsum dolor sit amet.</p>
+               <p> Lorem ipsum dolor sit amet.</p><p> Lorem ipsum dolor sit amet.</p>
+               <p> Lorem ipsum dolor sit amet.</p>
+               <p> Lorem ipsum dolor sit amet.</p>
+
+               <p> Lorem ipsum dolor sit amet.</p>
+               <p> Lorem ipsum dolor sit amet.</p>
+               <p> Lorem ipsum dolor sit amet.</p>
+               <p> Lorem ipsum dolor sit amet.</p>
+               <p> Lorem ipsum dolor sit amet.</p>
+               <p> Lorem ipsum dolor sit amet.</p>
+               <p> Lorem ipsum dolor sit amet.</p>
+               <p> Lorem ipsum dolor sit amet.</p>
+               <p> Lorem ipsum dolor sit amet.</p>
+               <p> Lorem ipsum dolor sit amet.</p>
+
+               <p> Lorem ipsum dolor sit amet.</p>
+               <p> Lorem ipsum dolor sit amet.</p>
+               <p> Lorem ipsum dolor sit amet.</p>
+               <p> Lorem ipsum dolor sit amet.</p>
+               <p> Lorem ipsum dolor sit amet.</p>
+               <p> Lorem ipsum dolor sit amet.</p>
+               <p> Lorem ipsum dolor sit amet.</p>
+               <p> Lorem ipsum dolor sit amet.</p>
+               <p> Lorem ipsum dolor sit amet.</p>
+
+               <p> Lorem ipsum dolor sit amet.</p>
+               <p> Lorem ipsum dolor sit amet.</p>
+               <p> Lorem ipsum dolor sit amet.</p>
+               <p> Lorem ipsum dolor sit amet.</p>
+               <p> Lorem ipsum dolor sit amet.</p>
+               <p> Lorem ipsum dolor sit amet.</p>
+
+               <p> Lorem ipsum dolor sit amet.</p>
+               <p> Lorem ipsum dolor sit amet.</p>
+               <p> Lorem ipsum dolor sit amet.</p>
+               <p> Lorem ipsum dolor sit amet.</p>
+               <p> Lorem ipsum dolor sit amet.</p>
+               <p> Lorem ipsum dolor sit amet.</p>
+               <p> Lorem ipsum dolor sit amet.</p>
+               <p> Lorem ipsum dolor sit amet.</p>
+               <p> Lorem ipsum dolor sit amet.</p>
+
+               <p> Lorem ipsum dolor sit amet.</p>
+               <p> Lorem ipsum dolor sit amet.</p><p> Lorem ipsum dolor sit amet.</p>
+
+            </div>
         </>
     )
 }
