@@ -1,6 +1,14 @@
 import Head from 'next/head';
+import Hero from '../../components/Home/Hero';
 
-export default function HomePage() {
+
+interface IProps {
+    products: any
+}
+
+export default function HomePage({ products }: IProps) {
+
+
     return (
         <>
             <Head>
@@ -10,64 +18,20 @@ export default function HomePage() {
                 <link rel="icon" href="/Images/logo2.png" />
             </Head>
 
-            <div className=''>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p><p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p>
-
-               <p> Lorem ipsum dolor sit amet.</p>
-               <p> Lorem ipsum dolor sit amet.</p><p> Lorem ipsum dolor sit amet.</p>
-
+            <div className='p-'>
+                <Hero products={products} />
             </div>
         </>
     )
+}
+
+
+export const getStaticProps = async () => {
+    const response = await fetch('http://localhost:8000/api/products?page=1&limit=20');
+    const data = await response.json();
+    return {
+        props: {
+            products: data.data.products,
+        },
+    }
 }

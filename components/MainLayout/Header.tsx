@@ -19,7 +19,8 @@ const Header = () => {
 
     return (
         <header className=" fixed top-0 left-0 right-0 z-50">
-            <nav className={`py-3 px-5 lg:pt-3 backdrop-blur-3xl flex flex-col gap-2 z-20 ${visibleDownNav && 'py-3'}`}>
+            <nav className={`py-3 px-5 lg:pt-3 backdrop-blur-3xl bg-zinc-900  bg-opacity-60
+             flex flex-col gap-2 z-20 ${visibleDownNav && 'py-3'}`}>
 
                 <div className="flex items-center gap-6 w-full" >
 
@@ -35,7 +36,7 @@ const Header = () => {
 
                     <div className="flex-1"></div>
 
-                    <div className="hidden lg:flex items-center justify-center gap-1">
+                    <div className="hidden lg:flex items-center justify-center gap-1 text-white">
                         <button className="btn btn-primary flex items-center gap-2 ">
                             <HiOutlineLogout className="text-2xl" style={{ transform: 'rotateY(180deg)' }} />
                             <span className="font-semibold text-xs">ورود | ثبت‌نام</span>
@@ -64,12 +65,12 @@ const Header = () => {
                             exit={{ y: -35,opacity:0 }}
                             transition={{ ease: "easeOut", duration: .2 }}
                             className="py-3 hidden lg:flex items-center w-full z-10 ">
-                            <div className="flex items-center justify-start gap-1 cursor-pointer">
+                            <div className="flex items-center justify-start gap-1 cursor-pointer text-white">
                                 <FaBars />
                                 <span className="text-sm">دسته بندی کتاب ها</span>
                             </div>
                             <div className="divider lg:divider-horizontal" style={{ marginInline: '.5rem' }}></div>
-                            <ul className="flex items-center gap-4 text-xs">
+                            <ul className="flex items-center gap-4 text-xs text-white">
                                 <li><Link href={'/'} >آخرینها</Link></li>
                                 <li><Link href={'/'} >بالاترین امتیازها</Link></li>
                                 <li><Link href={'/'} >همه دسته بندی ها</Link></li>

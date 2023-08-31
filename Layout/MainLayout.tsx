@@ -12,8 +12,10 @@ const MainLayout = ({ children }: IProps) => {
     return (
         <Fragment>
             <Header />
-            {children}
-            <Footer/>
+            <main className="pb-4">
+                {children}
+            </main>
+            <Footer />
         </Fragment>
     )
 }
