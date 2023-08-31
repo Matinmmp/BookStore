@@ -35,7 +35,8 @@ const Hero = ({ products }: IProps) => {
                                     <h3 className='text-2xl text-white font-semibold'>{product.name}</h3>
                                 </Link>
                                 <div className="flex flex-col items-center lg:flex-row  gap-8">
-                                    <Image alt='sdaf' width={2000} height={1300} className='w-[15rem] h-[20rem] rounded-lg'
+                                    <Image alt={product.name} width={600} height={800} className='w-[15rem] h-[20rem] 
+                                    shadow-sm shadow-primary rounded-lg'
                                         src={`http://localhost:8000/images/products/images/${product.images[0]}`} />
 
                                     <div className="hidden lg:flex flex-col text-white gap-4 w-7/12"

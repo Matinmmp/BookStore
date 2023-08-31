@@ -2,14 +2,17 @@ import Head from 'next/head';
 import Hero from '../../components/Home/Hero';
 
 import { Product } from '@/models/Types';
-import { getAllProducts } from '@/services/api/product';
+import { getAllProducts, getProductByCategoryId } from '@/services/api/product';
+import ProductsSlider from '@/components/Home/ProductsSlider';
 
 
 interface IProps {
     productsForHero: Product[]
+    fantsyProduct: Product[]
+    horrorProduct: Product[]
 }
 
-export default function HomePage({ productsForHero }: IProps) {
+export default function HomePage({ productsForHero, fantsyProduct, horrorProduct }: IProps) {
     return (
         <>
             <Head>
@@ -22,18 +25,29 @@ export default function HomePage({ productsForHero }: IProps) {
             <div className='p-'>
                 <Hero products={productsForHero} />
             </div>
+
+            <ProductsSlider products={fantsyProduct} title={'فانتزی'}/>
+            <ProductsSlider products={horrorProduct} title={'ترسناک'}/>
+            <ProductsSlider products={horrorProduct} title={'ترسناک'}/>
+
         </>
     )
 }
 
 
 export const getStaticProps = async () => {
-    let response =await getAllProducts();
-    response = await response.reverse().slice(0,7);
+    let productsForHero = await getAllProducts();
+    productsForHero = await productsForHero.reverse().slice(0, 7);
+
+    const fantsyProduct = await getProductByCategoryId('64dd173b0e366d6edaece779', 20);
+    const horrorProduct = await getProductByCategoryId('64defdace7d0b3b42651f804', 20);
 
     return {
         props: {
-            productsForHero: response,
+            productsForHero,
+            fantsyProduct,
+            horrorProduct
+
         },
     }
 }
