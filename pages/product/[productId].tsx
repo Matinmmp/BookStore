@@ -58,7 +58,7 @@ const ProductById = ({ product }: IProps) => {
                             <span>{product.brand}</span>
                         </div>
 
-                        <div className="flex items-start gap-4 mt-20">
+                        <div className="flex flex-wrap items-start gap-4 mt-20">
                             <div className="form-control w-full max-w-xs pb-8 relative ">
                                 <input type="number" placeholder="Type here" className="input input-bordered  "
                                 onChange={handleQuantityChnage}

@@ -9,7 +9,7 @@ const Filter = () => {
 
     return (
         <div>
-            <ul className="menu bg-base-200 w-56 rounded-box min-h-[40rem]" dir="rtl">
+            <ul className=" menu bg-base-200 w-56 rounded-box min-h-[40rem]" dir="rtl">
             {!isLoading && categories?.map((category)=><FilterItem key={category._id} category={category}/>)}
             </ul>
         </div>
