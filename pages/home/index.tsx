@@ -45,8 +45,8 @@ export const getStaticProps = async () => {
     return {
         props: {
             productsForHero,
-            fantsyProduct,
-            horrorProduct
+            fantsyProduct:fantsyProduct.products,
+            horrorProduct:horrorProduct.products
         },
         revalidate:1800,
     }
