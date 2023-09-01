@@ -74,8 +74,8 @@ const Header = () => {
                                 <li><Link href={'/'} >آخرینها</Link></li>
                                 <li><Link href={'/'} >بالاترین امتیازها</Link></li>
                                 <li><Link href={'/'} >همه دسته بندی ها</Link></li>
-                                <li><Link href={'/'} >درباره ما</Link></li>
-                                <li><Link href={'/'} >ارتباط با ما</Link></li>
+                                <li><Link href={'/about'} >درباره ما</Link></li>
+                                <li><Link href={'/contact'} >ارتباط با ما</Link></li>
                                 <div className="divider lg:divider-horizontal" style={{ marginInline: '.5rem' }}></div>
                                 <li><Link href={'/'} >سوالی دارید؟</Link></li>
                             </ul>

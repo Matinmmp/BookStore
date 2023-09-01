@@ -16,21 +16,21 @@ const Footer = () => {
             <div className='flex justify-start w-full'>
                 <div className="w-4/12 flex flex-col gap-2">
                     <span className="footer-title text-lg">می بوک</span>
-                    <Link href={'/'}></Link>
-                    <Link href={'/'}></Link>
-                    <Link href={'/'}></Link>
-                    <Link href={'/'}></Link>
+                    <Link href={'/'}>آیتم</Link>
+                    <Link href={'/'}>آیتم</Link>
+                    <Link href={'/'}>آیتم</Link>
+                    <Link href={'/'}>آیتم</Link>
                 </div>
                 <div className="w-4/12 flex flex-col gap-2">
                     <span className="footer-title text-lg">پیوند ها</span>
-                    <Link href={'/'}></Link>
-                    <Link href={'/'}></Link>
-                    <Link href={'/'}></Link>
+                    <Link href={'/'}>آیتم</Link>
+                    <Link href={'/'}>آیتم</Link>
+                    <Link href={'/'}>آیتم</Link>
                 </div>
                 <div className="w-4/12">
-                    {/* <Map height={200} defaultCenter={[50.879, 4.6997]} defaultZoom={11}>
+                    <Map height={200} defaultCenter={[50.879, 4.6997]} defaultZoom={11}>
                         <Marker width={50} anchor={[50.879, 4.6997]} />
-                    </Map> */}
+                    </Map>
                 </div>
             </div>
         </footer>
