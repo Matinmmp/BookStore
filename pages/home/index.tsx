@@ -47,7 +47,7 @@ export const getStaticProps = async () => {
             productsForHero,
             fantsyProduct,
             horrorProduct
-
         },
+        revalidate:1800,
     }
 }
