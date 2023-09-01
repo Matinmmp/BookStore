@@ -23,3 +23,14 @@ export const getProductByCategoryId = async (categoryId: String, limit: Number) 
             totalPages: response.data.total_pages
         };
 }
+
+
+export const getLastProductByCategoryId = async (categoryId: String, limit: Number) => {
+    const response = await publicAxios.get(`/products?category=${categoryId}&limit=${limit}&sort=-createdAt`)
+    return await
+        {
+            products: response.data.data.products,
+            page: response.data.page,
+            totalPages: response.data.total_pages
+        };
+}
