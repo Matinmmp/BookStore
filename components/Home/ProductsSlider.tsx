@@ -45,41 +45,45 @@ const ProductsSlider = ({ products, title }: IProps) => {
     return (
         <section className='w-full p-4 mt-[4rem] bg-base-300 '>
             <Link href={"/home/"} className='text-2xl'>{title}</Link>
-            <div className='mt-6 h-[26rem]  p-4 flex gap-4 overflow-x-auto ' >
+            <div className='mt-6 h-[35rem] p-4 flex items-center gap-4 overflow-x-auto ' >
                 <Swiper
                     slidesPerView={slidesPerView}
                     spaceBetween={10}
                     freeMode={true}
-                    // pagination={{
-                    //     clickable: true,
-                    // }}
+
                     modules={[Pagination]}
-                    className=" w-full h-[24rem] px-4">
+                    className=" w-full h-[28rem] px-4">
 
                     {products.map((product) =>
 
-                        <SwiperSlide className=' border-[1px] border-gray-400 border-opacity-50' key={product._id}>
-                            <div className='w-full h-full p-[6px] flex flex-col gap-3'>
-                                <Link href={'/home/'} >
-                                    <Image alt={product.name} width={200} height={500}
-                                        className='w-full h-[16rem] shadow-lg shadow-gray-600 rounded-md '
-                                        src={`http://localhost:8000/images/products/images/${product.images[0]}`} />
-                                </Link>
-                                <Link href={'/home/'} className="mt-2 ">
-                                    <h5 className="text-sm">{product.name}</h5>
-                                </Link>
-                                <div className="divider m-0 mt-2" ></div>
-                                <div className='flex justify-between'>
-                                    <div className="flex items-center gap-2 text-sm">
-                                        <span className='text-primary-focus'>{separate(product.price)}</span>
-                                        <span >تومان</span>
+                        <SwiperSlide key={product._id} className='pt-4'>
+                            <div className=' border-[1px] border-gray-400 border-opacity-50 hover:scale-[1.03] transition-all' >
+                                <div className='w-full h-full p-[6px] flex flex-col gap-3'>
+
+                                    <Link href={`/product/${product._id}`} >
+                                        <Image alt={product.name} width={200} height={500}
+                                            className='w-full h-[16rem] shadow-lg shadow-gray-600 rounded-md '
+                                            src={`http://localhost:8000/images/products/images/${product.images[0]}`} />
+                                    </Link>
+
+                                    <Link href={`/product/${product._id}`} className="mt-2 ">
+                                        <h5 className="text-sm">{product.name}</h5>
+                                    </Link>
+
+                                    <div className="divider m-0 mt-2" ></div>
+
+                                    <div className='flex justify-between'>
+                                        <div className="flex items-center gap-2 text-sm">
+                                            <span className='text-primary-focus'>{separate(product.price)}</span>
+                                            <span >تومان</span>
+                                        </div>
+                                        <BsBasket className="text-2xl text-primary-focus cursor-pointer" />
                                     </div>
 
-                                    <BsBasket className="text-2xl text-primary-focus cursor-pointer" />
-
-
                                 </div>
+
                             </div>
+
                         </SwiperSlide>
                     )}
                 </Swiper>

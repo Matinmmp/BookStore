@@ -31,7 +31,7 @@ const Hero = ({ products }: IProps) => {
 
                         <div className='absolute top-0 right-0 left-0 bottom-0 backdrop-blur-[3px] bg-slate-950 bg-opacity-70'>
                             <div className='flex flex-col items-center lg:items-start p-4 pt-20 lg:p-16 lg:px-36 lg:mt-[6rem] gap-12'>
-                                <Link href={'/'}>
+                                <Link href={`/product/${product._id}`}>
                                     <h3 className='text-2xl text-white font-semibold'>{product.name}</h3>
                                 </Link>
                                 <div className="flex flex-col items-center lg:flex-row  gap-8">
@@ -43,7 +43,7 @@ const Hero = ({ products }: IProps) => {
                                         dangerouslySetInnerHTML={{ __html: product.description }} />
                                     <div className="self-end w-full text-center lg:w-auto ">
                                         <button className="btn btn-primary ">
-                                            <Link href={"/"}>
+                                            <Link href={`/product/${product._id}`}>
                                                 بیشتر....
                                             </Link>
                                         </button>
