@@ -5,6 +5,7 @@ import React, { ChangeEvent } from 'react'
 import { BsBasket } from 'react-icons/bs';
 import { separate } from '../../utils/seperator';
 import {useState} from 'react';
+import FlipBook from '@/components/Products/FlipBook';
 // import { GoIssueClosed } from 'react-icons/go';
 // import { IoCloseCircleOutline } from 'react-icons/io'
 
@@ -23,12 +24,15 @@ const ProductById = ({ product }: IProps) => {
     return (
         <main className='mt-[8rem] lg:mt-[10rem] mx-auto px-8 lg:px-16 xl:px-28'>
             <div className="flex flex-wrap lg:flex-nowrap gap-20 w-full ">
-                <div className='w-full lg:w-[25rem]'>
-                    <Image alt={product.name} width={200} height={500}
+
+                <div className='w-full lg:w-[25rem] '>
+                <FlipBook/>
+                    {/* <Image alt={product.name} width={200} height={500}
                         className='w-[20rem] h-[25rem] shadow-xl shadow-gray-600 rounded-md mx-auto'
-                        src={`http://localhost:8000/images/products/images/${product.images[0]}`} />
+                        src={`http://localhost:8000/images/products/images/${product.images[0]}`} /> */}
                 </div>
-                <div className='flex flex-wrap lg:flex-nowrap w-full justify-between gap-16 items-center'>
+
+                <div className='flex flex-wrap lg:flex-nowrap w-full justify-between gap-16 items-center -z-50 '>
 
                     <div className=' w-full lg:w-8/12 '>
                         <h1 className=' text-2xl xl:text-4xl font-semibold'>{product.name}</h1>
@@ -89,6 +93,7 @@ const ProductById = ({ product }: IProps) => {
                             dangerouslySetInnerHTML={{ __html: product.description }} />
                     </div>
                 </div>
+
             </div>
         </main>
     )
