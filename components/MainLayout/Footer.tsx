@@ -28,9 +28,9 @@ const Footer = () => {
                     <Link href={'/'}>آیتم</Link>
                 </div>
                 <div className="w-4/12">
-                    <Map height={200} defaultCenter={[50.879, 4.6997]} defaultZoom={11}>
+                    {/* <Map height={200} defaultCenter={[50.879, 4.6997]} defaultZoom={11}>
                         <Marker width={50} anchor={[50.879, 4.6997]} />
-                    </Map>
+                    </Map> */}
                 </div>
             </div>
         </footer>

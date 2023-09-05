@@ -26,9 +26,11 @@ export default function HomePage({ productsForHero, fantsyProduct, horrorProduct
                 <Hero products={productsForHero} />
             </div>
 
-            <ProductsSlider products={fantsyProduct} title={'فانتزی'}/>
+           <main className='px-4'>
+           <ProductsSlider products={fantsyProduct} title={'فانتزی'}/>
             <ProductsSlider products={horrorProduct} title={'ترسناک'}/>
             <ProductsSlider products={horrorProduct} title={'ترسناک'}/>
+           </main>
 
         </>
     )
@@ -39,8 +41,8 @@ export const getStaticProps = async () => {
     let productsForHero = await getAllProducts();
     productsForHero = await productsForHero.reverse().slice(0, 7);
 
-    const fantsyProduct = await getProductByCategoryId('64dd173b0e366d6edaece779', 20);
-    const horrorProduct = await getProductByCategoryId('64defdace7d0b3b42651f804', 20);
+    const fantsyProduct = await getProductByCategoryId('64dd173b0e366d6edaece779', 20,1);
+    const horrorProduct = await getProductByCategoryId('64defdace7d0b3b42651f804', 20,1);
 
     return {
         props: {

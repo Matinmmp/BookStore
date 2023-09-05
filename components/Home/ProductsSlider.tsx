@@ -38,8 +38,10 @@ const ProductsSlider = ({ products, title }: IProps) => {
     }, [])
 
     return (
-        <section className='w-full px-4 pt-4 mt-[4rem] bg-base-200'>
-            <Link href={`/product/${products[0].category}/new?page=1`} className='text-2xl '>{title}</Link>
+        <section className='w-full px-4 pt-4 mt-[4rem] bg-base-300 rounded-xl 
+        shadow-inner shadow-success'>
+            <Link href={`/product/${products[0].category}/new?page=1`} 
+            className='text-3xl hover:text-primary transition-all '>{title}</Link>
             <div className='mt-6 h-[28rem] px-4 flex items-center gap-4 overflow-x-auto ' >
                 <Swiper
                     slidesPerView={slidesPerView}
@@ -47,7 +49,6 @@ const ProductsSlider = ({ products, title }: IProps) => {
                     freeMode={true}
                     modules={[Pagination]}
                     className=" w-full h-[28rem] px-4">
-
                     {products.map((product) =>
                         <SwiperSlide key={product._id} className='pt-4'>
                             <ProductItem product={product} />
