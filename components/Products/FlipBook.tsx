@@ -12,47 +12,49 @@ const FlipBook = ({ images }: IProps) => {
     const book = useRef<HTMLDivElement>(null);
     const [paperList, setPaperList] = useState<RefObject<HTMLDivElement>[]>([]);
     const [currentLocation, setCurrentLocation] = useState(0);
-    let numOfPapers = images.length;
-    let maxLocation = numOfPapers + 1;
+    const numOfPapers = images.length;
 
     const pushToPaperList = (paper: RefObject<HTMLDivElement>) => {
         setPaperList((paperList) => [...paperList, paper]);
     }
 
-    function openBook() {
+    const openBook = () => {
         if (book.current)
             book.current.style.transform = "translateX(-100%)";
     }
 
-    function closeBook(isAtBeginning: boolean) {
+    const closeBook = (isAtBeginning: boolean) => {
         if (book.current)
-            if (isAtBeginning) {
-                book.current.style.transform = "translateX(0%)";
-
-            } else {
-                book.current.style.transform = "translateX(-100%)";
-            }
+            if (isAtBeginning) book.current.style.transform = "translateX(0%)";
+            else book.current.style.transform = "translateX(-100%)";
     }
-    const a = Array.from({ length: numOfPapers }, (v, k) => k + 1).reverse()
+    // const a = Array.from({ length: numOfPapers }, (v, k) => k + 1).reverse()
 
     const handleNextPage = () => {
         if (currentLocation < numOfPapers) {
+
             for (let i = 0; i < numOfPapers; i++) {
-                if (currentLocation === 0 ) {
-                    paperList[0].current?.classList.add('flipped')
-                    paperList[0].current.style.zIndex = `${1}`;
+                if (currentLocation === 0) {
+                    paperList[0].current?.classList.add('flipped');
+                    if (paperList[0].current)
+                        paperList[0].current.style.zIndex = `${1}`;
                     openBook();
                     break;
                 }
                 if (currentLocation === i) {
                     paperList[i].current?.classList.add('flipped')
-                    paperList[i].current.style.zIndex = `${i + 1}`;
+                    if (paperList.length) {
+                        const currentPaper = paperList[i].current;
+                        if (currentPaper) {
+                            currentPaper.style.zIndex = `${i + 1}`;
+                        }
+                    }
                     break;
                 }
                 if (currentLocation === numOfPapers) {
                     closeBook(false);
                 }
-            }       
+            }
             setCurrentLocation((currentLocation) => currentLocation + 1);
         }
     }
@@ -60,22 +62,33 @@ const FlipBook = ({ images }: IProps) => {
     const handlePrevPage = () => {
         if (currentLocation > 0) {
             for (let i = 1; i < numOfPapers; i++) {
-                if (currentLocation === 1) {            
+                if (currentLocation === 1) {
                     closeBook(true);
                     paperList[0].current?.classList.remove('flipped')
-                    paperList[0].current.style.zIndex = `${maxLocation-1}`;
+                    if (paperList[0].current)
+                        paperList[0].current.style.zIndex = `${numOfPapers}`;
                     break;
                 }
-                if (currentLocation === numOfPapers) {           
+                if (currentLocation === numOfPapers) {
                     openBook();
-                    paperList[paperList.length - 1].current?.classList.remove('flipped')
-                    paperList[paperList.length - 1].current.style.zIndex = `${1}`;
+                    paperList[paperList.length - 1].current?.classList.remove('flipped');
+                    if (paperList.length) {
+                        const currentPaper = paperList[paperList.length - 1].current;
+                        if (currentPaper) {
+                            currentPaper.style.zIndex = `${1}`;
+                        }
+                    }
                     break;
                 }
                 if (currentLocation === i) {
-                    console.log(i);               
-                    paperList[i-1].current?.classList.remove('flipped')
-                    paperList[i-1].current.style.zIndex = `${maxLocation-i}`;
+                    console.log(i);
+                    paperList[i - 1].current?.classList.remove('flipped')
+                    if (paperList.length) {
+                        const currentPaper = paperList[i - 1].current;
+                        if (currentPaper) {
+                            currentPaper.style.zIndex = `${numOfPapers}`;
+                        }
+                    }
                     break;
                 }
             }
