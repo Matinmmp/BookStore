@@ -32,7 +32,7 @@ const ProductById = ({ product }: IProps) => {
                         src={`http://localhost:8000/images/products/images/${product.images[0]}`} /> */}
                 </div>
 
-                <div className='flex flex-wrap lg:flex-nowrap w-full justify-between gap-16 items-center  '>
+                <div className='flex flex-wrap lg:flex-nowrap w-full justify-between gap-16 items-center  -z-50'>
 
                     <div className=' w-full lg:w-8/12 '>
                         <h1 className=' text-2xl xl:text-4xl font-semibold'>{product.name}</h1>
