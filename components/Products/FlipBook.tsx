@@ -13,7 +13,8 @@ const FlipBook = ({ images }: IProps) => {
     const [paperList, setPaperList] = useState<RefObject<HTMLDivElement>[]>([]);
     const [currentLocation, setCurrentLocation] = useState(0);
     const numOfPapers = images.length;
-
+    const max = numOfPapers +1;
+    
     const pushToPaperList = (paper: RefObject<HTMLDivElement>) => {
         setPaperList((paperList) => [...paperList, paper]);
     }
@@ -31,6 +32,7 @@ const FlipBook = ({ images }: IProps) => {
     // const a = Array.from({ length: numOfPapers }, (v, k) => k + 1).reverse()
 
     const handleNextPage = () => {
+        
         if (currentLocation < numOfPapers) {
 
             for (let i = 0; i < numOfPapers; i++) {
@@ -86,7 +88,7 @@ const FlipBook = ({ images }: IProps) => {
                     if (paperList.length) {
                         const currentPaper = paperList[i - 1].current;
                         if (currentPaper) {
-                            currentPaper.style.zIndex = `${numOfPapers}`;
+                            currentPaper.style.zIndex = `${max-i}`;
                         }
                     }
                     break;
@@ -97,7 +99,7 @@ const FlipBook = ({ images }: IProps) => {
     }
 
     return (
-        <div className="bg-red-400 w-auto z-50">
+        <div className=" w-auto">
             <button onClick={handlePrevPage} >
                 prev
             </button>
@@ -143,12 +145,9 @@ const FlipBook = ({ images }: IProps) => {
                     </div>
                 </div> */}
 
-                {/* { [1,2,3,4].map((index2,index)=>
-                <FlipBookPage key={index} currentLocation={currentLocation}
-                paperPage={index+1} z_index={numOfPapers-index} currentAction={currentAction} /> )} */}
 
                 {images.map((image, index) => <FlipBookPage key={index}
-                    pushToPaperList={pushToPaperList} z_index={numOfPapers - index} />)}
+                    pushToPaperList={pushToPaperList} z_index={ numOfPapers-index} nextPage={handleNextPage} prevPage={handlePrevPage} />)}
 
             </div>
 
