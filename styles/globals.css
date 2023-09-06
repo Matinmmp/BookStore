@@ -46,8 +46,7 @@ input::-webkit-inner-spin-button {
 /* Book */
 .book {
     position: relative;
-    width: 350px;
-    height: 500px;
+
     transition: transform 0.5s;
 }
 

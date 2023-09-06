@@ -4,7 +4,7 @@ import Image from 'next/image'
 import React, { ChangeEvent } from 'react'
 import { BsBasket } from 'react-icons/bs';
 import { separate } from '../../utils/seperator';
-import {useState} from 'react';
+import { useState } from 'react';
 import FlipBook from '@/components/Products/FlipBook';
 // import { GoIssueClosed } from 'react-icons/go';
 // import { IoCloseCircleOutline } from 'react-icons/io'
@@ -15,27 +15,34 @@ interface IProps {
 
 const ProductById = ({ product }: IProps) => {
 
-    const [quantity,setQuantity] = useState(1);
+    const [quantity, setQuantity] = useState(1);
 
-    const handleQuantityChnage=(e:any)=>{
-        if(e.target.value>0 && e.target.value<=product.quantity)
-        setQuantity(e.target.value)
+    const handleQuantityChnage = (e: any) => {
+        if (e.target.value > 0 && e.target.value <= product.quantity)
+            setQuantity(e.target.value)
     }
     return (
-        <main className='mt-[8rem] lg:mt-[10rem] mx-auto px-8 lg:px-16 xl:px-28'>
-            <div className="flex flex-wrap lg:flex-nowrap gap-20 w-full ">
+        <main className='mt-[4rem] lg:mt-[10rem] mx-auto px-8 lg:px-16 xl:px-20'>
+            <div className="flex flex-col flex-wrap lg:flex-nowrap gap-6 w-full ">
 
-                <div className='w-full lg:w-[25rem] '>
-                <FlipBook images={product.images}/>
-                    {/* <Image alt={product.name} width={200} height={500}
-                        className='w-[20rem] h-[25rem] shadow-xl shadow-gray-600 rounded-md mx-auto'
-                        src={`http://localhost:8000/images/products/images/${product.images[0]}`} /> */}
+                <div className="w-full px-4 py-4 flex justify-center">
+                    <h1 className=' text-3xl xl:text-4xl font-semibold'>{product.name}</h1>
                 </div>
 
-                <div className='flex flex-wrap lg:flex-nowrap w-full justify-between gap-16 items-center  -z-50'>
+                {/* <div className='w-full lg:w-[25rem] '>
+                    <FlipBook images={product.images} />
 
-                    <div className=' w-full lg:w-8/12 '>
-                        <h1 className=' text-2xl xl:text-4xl font-semibold'>{product.name}</h1>
+                </div> */}
+
+                <div className='flex flex-wrap lg:flex-nowrap w-full gap-16 items-center'>
+
+
+                    <div className='px-4'>
+                        <FlipBook images={product.images} />
+                    </div>
+
+                    <div className=''>
+
 
                         <div className='flex justify-between mt-10'>
                             <div className="flex items-center gap-2 text-lg">
@@ -65,8 +72,8 @@ const ProductById = ({ product }: IProps) => {
                         <div className="flex flex-wrap items-start gap-4 mt-20">
                             <div className="form-control w-full max-w-xs pb-8 relative ">
                                 <input type="number" placeholder="Type here" className="input input-bordered "
-                                onChange={handleQuantityChnage}
-                                value={quantity} />
+                                    onChange={handleQuantityChnage}
+                                    value={quantity} />
                                 {/* <label className="label absolute bottom-0">
                                     <span className="label-text-alt text-red-500 ">تعداد نباید بیشتر از {product.quantity} باشد.</span>
                                 </label> */}
@@ -88,10 +95,11 @@ const ProductById = ({ product }: IProps) => {
 
                     </div>
 
-                    <div className=' w-full lg:w-4/12'>
+                    <div className=''>
                         <div className="flex flex-col gap-8"
                             dangerouslySetInnerHTML={{ __html: product.description }} />
                     </div>
+
                 </div>
 
             </div>

@@ -1,6 +1,7 @@
 
 import { RefObject, useEffect, useRef, useState } from 'react'
 import FlipBookPage from './FlipBookPage';
+import { AnimatePresence, motion } from 'framer-motion'
 
 
 interface IProps {
@@ -12,6 +13,7 @@ const FlipBook = ({ images }: IProps) => {
     const book = useRef<HTMLDivElement>(null);
     const [paperList, setPaperList] = useState<RefObject<HTMLDivElement>[]>([]);
     const [currentLocation, setCurrentLocation] = useState(0);
+    const [isOpen, setIsOpen] = useState(false);
     const numOfPapers = Math.ceil(images.length / 2);
     const max = numOfPapers + 1;
     const array = Array.from({ length: numOfPapers }, (v, k) => k);
@@ -22,11 +24,13 @@ const FlipBook = ({ images }: IProps) => {
     }
 
     const openBook = () => {
+        setIsOpen(true);
         if (book.current)
             book.current.style.transform = "translateX(-100%)";
     }
 
     const closeBook = (isAtBeginning: boolean) => {
+        setIsOpen(false)
         if (book.current)
             if (isAtBeginning) book.current.style.transform = "translateX(0%)";
             else book.current.style.transform = "translateX(-100%)";
@@ -122,62 +126,27 @@ const FlipBook = ({ images }: IProps) => {
     }
 
     return (
-        <div className=" w-auto">
-            <button onClick={handlePrevPage} >
-                prev
-            </button>
+        <AnimatePresence>
+            <motion.div layout
+                initial={{ width: '20rem', height: '40rem' }}
+                animate={{ width: isOpen ? '40rem' : '20rem',  }}
+                data-isopen={isOpen}>
+                <button onClick={handlePrevPage} >
+                    prev
+                </button>
 
-            <div className="book" ref={book}>
-                {/* 
-                <div id='p1' className="paper" ref={paper1}>
-                    <div className="front rounded-l-3xl">
-                        <div id="f1" className="front-content">
-                            <h1>Front 1</h1>
-                        </div>
-                    </div>
-                    <div className="back rounded-l-3xl">
-                        <div id="b1" className="back-content">
-                            <h1>Back 1</h1>
-                        </div>
-                    </div>
+                <div
+                    ref={book} className="book w-[20rem] h-[30rem]">
+                    {array.map((i, index) => <FlipBookPage key={index} data={[images[index === 0 ? index : index + 1], images[(index * 2) + 1]]}
+                        pushToPaperList={pushToPaperList} z_index={numOfPapers - index} nextPage={handleNextPage} prevPage={handlePrevPage} />)}
+
                 </div>
 
-                <div id='p2' className="paper" ref={paper2}>
-                    <div className="front rounded-l-3xl">
-                        <div id="f2" className="front-content">
-                            <h1>Front 2</h1>
-                        </div>
-                    </div>
-                    <div className="back rounded-l-3xl">
-                        <div id="b2" className="back-content">
-                            <h1>Back 2</h1>
-                        </div>
-                    </div>
-                </div>
-
-                <div id='p3' className="paper" ref={paper3}>
-                    <div className="front rounded-l-3xl">
-                        <div id="f3" className="front-content">
-                            <h1>Front 3</h1>
-                        </div>
-                    </div>
-                    <div className="back rounded-l-3xl">
-                        <div id="b3" className="back-content">
-                            <h1>Back 3</h1>
-                        </div>
-                    </div>
-                </div> */}
-
-
-                {array.map((i, index) => <FlipBookPage key={index} data={[images[i], images[(i * 2) + 1]]}
-                    pushToPaperList={pushToPaperList} z_index={numOfPapers - index} nextPage={handleNextPage} prevPage={handlePrevPage} />)}
-
-            </div>
-
-            <button onClick={handleNextPage}>
-                next
-            </button>
-        </div>
+                <button onClick={handleNextPage}>
+                    next
+                </button>
+            </motion.div>
+        </AnimatePresence>
     )
 }
 
