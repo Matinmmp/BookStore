@@ -21,7 +21,7 @@ export type Product = {
     brand: string,
     description: string,
     thumbnail: string,
-    images: string,
+    images: string[],
     rating: Rating,
 }
 

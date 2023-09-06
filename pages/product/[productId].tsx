@@ -26,7 +26,7 @@ const ProductById = ({ product }: IProps) => {
             <div className="flex flex-wrap lg:flex-nowrap gap-20 w-full ">
 
                 <div className='w-full lg:w-[25rem] '>
-                <FlipBook/>
+                <FlipBook images={product.images}/>
                     {/* <Image alt={product.name} width={200} height={500}
                         className='w-[20rem] h-[25rem] shadow-xl shadow-gray-600 rounded-md mx-auto'
                         src={`http://localhost:8000/images/products/images/${product.images[0]}`} /> */}
