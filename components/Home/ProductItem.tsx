@@ -18,7 +18,7 @@ const ProductItem = ({ product }: IProps) => {
 
                 <Link href={`/product/${product._id}`} >
                     <Image alt={product.name} width={200} height={500}
-                        className='w-full h-[16rem] shadow-lg shadow-gray-700 rounded-md '
+                        className='w-full h-[20rem] shadow-lg shadow-gray-700 rounded-md '
                         src={`http://localhost:8000/images/products/images/${product.images[0]}`} />
                 </Link>
 

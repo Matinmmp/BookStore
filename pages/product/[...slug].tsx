@@ -37,7 +37,7 @@ const ProductById = ({ products, page, totalPages }: IProps) => {
                 <main className="px-4 w-full">
                     <ProductsList products={products} />
                 </main>
-                <div className="join flex flex-row-reverse justify-center mt-4">
+                <div className="join flex flex-row-reverse justify-center items-center mt-4">
                     { totalPages >1 && Array.from({ length: totalPages }, (v, k) => k + 1).map(number =>
 
                         <button key={number} onClick={()=>handleChangePage(number)}

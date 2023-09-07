@@ -22,27 +22,24 @@ const ProductById = ({ product }: IProps) => {
             setQuantity(e.target.value)
     }
     return (
-        <main className='mt-[4rem] lg:mt-[10rem] mx-auto px-8 lg:px-16 xl:px-20'>
-            <div className="flex flex-col flex-wrap lg:flex-nowrap gap-6 w-full ">
+        <main className=''>
 
-                <div className="w-full px-4 py-4 flex justify-center">
+            <Image alt='header' width={2000} height={1200} className='object-cover w-full h-[70vh] lg:h-[55vh] mt-[4rem] lg:mt-[8.5rem]'
+                src={`http://localhost:8000/images/products/thumbnails/${product.thumbnail}`} />
+
+            <div className="flex flex-col flex-wrap lg:flex-nowrap gap-2 w-full mt-[1rem] mx-auto px-4 lg:px-12 xl:px-">
+
+                <div className="w-full px-4 py-2 flex justify-center">
                     <h1 className=' text-3xl xl:text-4xl font-semibold'>{product.name}</h1>
                 </div>
 
-                {/* <div className='w-full lg:w-[25rem] '>
-                    <FlipBook images={product.images} />
-
-                </div> */}
-
                 <div className='flex flex-wrap lg:flex-nowrap w-full gap-16 items-center'>
 
-
-                    <div className='px-4'>
+                    <div className=' flex justify-center w-full lg:block lg:w-auto'>
                         <FlipBook images={product.images} />
                     </div>
 
                     <div className=''>
-
 
                         <div className='flex justify-between mt-10'>
                             <div className="flex items-center gap-2 text-lg">

@@ -26,16 +26,16 @@ const Hero = ({ products }: IProps) => {
                 className="h-full" >
                 {products.map((product) =>
                     <SwiperSlide className='h-full relative' key={product._id}>
-                        <Image alt='sdaf' width={2000} height={1200} className='w-full h-full object-cover'
+                        <Image alt='header' width={2000} height={1200} className='w-full h-full object-cover'
                             src={`http://localhost:8000/images/products/thumbnails/${product.thumbnail}`} />
-                        <div className='absolute top-0 right-0 left-0 bottom-0 backdrop-blur-[3px] bg-slate-950 bg-opacity-70'>
+                        <div className='absolute top-0 right-0 left-0 bottom-0 backdrop-blur-[3px] bg-primary bg-opacity-10'>
                             <div className='flex flex-col items-center lg:items-start p-4 pt-20 lg:p-16 lg:px-36 lg:mt-[6rem] gap-12'>
                                 <Link href={`/product/${product._id}`}>
                                     <h3 className='text-2xl text-white font-semibold'>{product.name}</h3>
                                 </Link>
                                 <div className="flex flex-col w-full items-center lg:flex-row  gap-8">
                                     <Link href={`/product/${product._id}`} >
-                                        <Image alt={product.name} width={600} height={1000} className='w-[15rem] h-[20rem] 
+                                        <Image alt={product.name} width={600} height={1000} className='w-[15rem] h-[22.5rem] 
                                         shadow-sm shadow-primary rounded-lg'
                                             src={`http://localhost:8000/images/products/images/${product.images[0]}`} />
                                     </Link>

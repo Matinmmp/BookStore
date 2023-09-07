@@ -13,6 +13,7 @@ const FlipBook = ({ images }: IProps) => {
     const book = useRef<HTMLDivElement>(null);
     const [paperList, setPaperList] = useState<RefObject<HTMLDivElement>[]>([]);
     const [currentLocation, setCurrentLocation] = useState(0);
+    const [size,setSize] = useState(0);
     const [isOpen, setIsOpen] = useState(false);
     const numOfPapers = Math.ceil(images.length / 2);
     const max = numOfPapers + 1;
@@ -125,26 +126,28 @@ const FlipBook = ({ images }: IProps) => {
         }
     }
 
+    useEffect(() => {
+        checkSize();
+        window.addEventListener('resize', () => {
+            checkSize();
+        })
+        function checkSize() {
+            if (window.innerWidth > 0) setSize(7);
+            if (window.innerWidth > 640) setSize(15);
+            if (window.innerWidth > 768) setSize(20);
+        }
+    }, [])
+    console.log();
+    
     return (
         <AnimatePresence>
-            <motion.div layout
-                initial={{ width: '20rem', height: '40rem' }}
-                animate={{ width: isOpen ? '40rem' : '20rem',  }}
-                data-isopen={isOpen}>
-                <button onClick={handlePrevPage} >
-                    prev
-                </button>
-
-                <div
-                    ref={book} className="book w-[20rem] h-[30rem]">
+            <motion.div layout style={{ width: `${size}rem`, height: `${size*1.5}rem` }} 
+                animate={{ width: isOpen ? `${size*2}rem` : `${size}rem`,  }}>
+                <div ref={book} className={`book h-[10.5rem] w-[7rem] sm:h-[22.5rem] sm:w-[15rem] md:h-[30rem] md:w-[20rem]`}>
                     {array.map((i, index) => <FlipBookPage key={index} data={[images[index === 0 ? index : index + 1], images[(index * 2) + 1]]}
                         pushToPaperList={pushToPaperList} z_index={numOfPapers - index} nextPage={handleNextPage} prevPage={handlePrevPage} />)}
 
                 </div>
-
-                <button onClick={handleNextPage}>
-                    next
-                </button>
             </motion.div>
         </AnimatePresence>
     )

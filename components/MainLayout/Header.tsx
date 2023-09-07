@@ -19,8 +19,8 @@ const Header = () => {
 
     return (
         <header className=" fixed top-0 left-0 right-0 z-50">
-            <nav className={`py-3 px-5 lg:pt-3 backdrop-blur-3xl bg-zinc-900  bg-opacity-60
-             flex flex-col gap-2 z-20 ${visibleDownNav && 'py-3'}`}>
+            <nav className={`py-2 px-5 lg:pt-3 backdrop-blur-3xl bg-zinc-900 bg-opacity-80
+             flex flex-col  z-20 ${visibleDownNav && 'py-3'}`}>
 
                 <div className="flex items-center gap-6 w-full" >
 
@@ -62,7 +62,7 @@ const Header = () => {
                         <motion.div layout
                             initial={{ y: -35 ,opacity:0}}
                             animate={{ y: 0 ,opacity:100}}                          
-                            exit={{ y: -35,opacity:0 }}
+                            // exit={{ y: -35,opacity:0 }}
                             transition={{ ease: "easeOut", duration: .2 }}
                             className="py-3 hidden lg:flex items-center w-full z-10 ">
                             <div className="flex items-center justify-start gap-1 cursor-pointer text-white">

@@ -32,7 +32,7 @@ const ProductsSlider = ({ products, title }: IProps) => {
             if (window.innerWidth > 850) setSlidesPerView(4);
             if (window.innerWidth > 1050) setSlidesPerView(5);
             if (window.innerWidth > 1300) setSlidesPerView(6);
-            if (window.innerWidth > 1400) setSlidesPerView(7);
+            if (window.innerWidth > 1400) setSlidesPerView(6);
             if (window.innerWidth > 1600) setSlidesPerView(8);
         }
     }, [])
