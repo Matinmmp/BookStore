@@ -12,8 +12,8 @@ export type User = {
 
 export type Product = {
     _id: string,
-    category: string,
-    subcategory: string,
+    category: Category,
+    subcategory: SubCategory,
     name: string,
     slugname: string,
     price: number
@@ -21,8 +21,9 @@ export type Product = {
     brand: string,
     description: string,
     thumbnail: string,
-    images: string,
+    images: string[],
     rating: Rating,
+
 }
 
 export type  SubCategory={

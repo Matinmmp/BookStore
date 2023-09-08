@@ -12,18 +12,18 @@ interface IProps {
 const ProductItem = ({ product }: IProps) => {
 
     return (
-        <div className=' border-[1px] border-gray-400 
-         border-opacity-50 hover:scale-[1.03] transition-all rounded-sm' >
+        <div className=' border-[1px] border-primary bg-white 
+         border-opacity-50 hover:scale-[1.03] transition-all rounded-md' >
             <div className='w-full h-full p-[6px] flex flex-col gap-3'>
 
                 <Link href={`/product/${product._id}`} >
                     <Image alt={product.name} width={200} height={500}
-                        className='w-full h-[16rem] shadow-lg shadow-gray-700 rounded-md '
+                        className='w-full h-[20rem] shadow-lg shadow-gray-700 rounded-md '
                         src={`http://localhost:8000/images/products/images/${product.images[0]}`} />
                 </Link>
 
                 <Link href={`/product/${product._id}`} className="mt-2 ">
-                    <h5 className="text-sm">{product.name}</h5>
+                    <h5 className="text-sm hover:text-primary transition-all">{product.name}</h5>
                 </Link>
 
                 <div className="divider m-0 mt-2" ></div>
