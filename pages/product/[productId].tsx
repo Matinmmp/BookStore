@@ -6,8 +6,9 @@ import { BsBasket } from 'react-icons/bs';
 import { separate } from '../../utils/seperator';
 import { useState } from 'react';
 import FlipBook from '@/components/Products/FlipBook';
-// import { GoIssueClosed } from 'react-icons/go';
-// import { IoCloseCircleOutline } from 'react-icons/io'
+import Link from 'next/link';
+import { BsChevronLeft } from 'react-icons/bs';
+
 
 interface IProps {
     product: Product
@@ -16,7 +17,8 @@ interface IProps {
 const ProductById = ({ product }: IProps) => {
 
     const [quantity, setQuantity] = useState(1);
-
+    console.log(product);
+    
     const handleQuantityChnage = (e: any) => {
         if (e.target.value > 0 && e.target.value <= product.quantity)
             setQuantity(e.target.value)
@@ -24,13 +26,26 @@ const ProductById = ({ product }: IProps) => {
     return (
         <main className=''>
 
-            <Image alt='header' width={2000} height={1200} className='object-cover w-full h-[70vh] lg:h-[55vh] mt-[4rem] lg:mt-[8.5rem]'
+            <Image alt='header' width={2000} height={1200}
+                className='object-cover w-full h-[70vh] lg:h-[60vh] mt-[4rem] lg:mt-[8.5rem]'
                 src={`http://localhost:8000/images/products/thumbnails/${product.thumbnail}`} />
 
             <div className="flex flex-col flex-wrap lg:flex-nowrap gap-2 w-full mt-[1rem] mx-auto px-4 lg:px-12 xl:px-">
-
+                <div className="w-full flex">
+                    <div className="text-md breadcrumbs">
+                        <ul className='flex items-center gap-2'>
+                            <li className='hover:text-primary transition-all'>
+                                <Link href={`/product/${product.category._id}/new?page=1`}>{product.category.name}</Link>
+                                </li>
+                            <BsChevronLeft/>
+                            <li className='hover:text-primary transition-all'>
+                                <Link href={`/product/${product.category._id}/${product.subcategory._id}/new?page=1`}>{product.subcategory.name}</Link>
+                                </li>
+                        </ul>
+                    </div>
+                </div>
                 <div className="w-full px-4 py-2 flex justify-center">
-                    <h1 className=' text-3xl xl:text-4xl font-semibold'>{product.name}</h1>
+                    <h1 className=' text-2xl xl:text-4xl font-semibold'>{product.name}</h1>
                 </div>
 
                 <div className='flex flex-wrap lg:flex-nowrap w-full gap-16 items-center'>
