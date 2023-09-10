@@ -1,5 +1,8 @@
 import { getAllProducts, getProductById } from '@/services/api/product';
+import { addToCart } from '../../store/shopingCart-slice';
+import { useSelector, useDispatch } from 'react-redux';
 import FlipBook from '@/components/Products/FlipBook';
+import type { RootState } from '../../store/store';
 import { separate } from '../../utils/seperator';
 import { BsChevronLeft } from 'react-icons/bs';
 import React, { ChangeEvent } from 'react';
@@ -18,7 +21,8 @@ interface IProps {
 const ProductById = ({ product }: IProps) => {
 
     const [quantity, setQuantity] = useState(1);
-    console.log(product);
+    const cartList = useSelector((state: RootState) => state.shopingCart.cartList)
+    const dispatch = useDispatch()
 
     const handleQuantityChnage = (e: any) => {
         if (e.target.value > 0 && e.target.value <= product.quantity)
@@ -101,7 +105,8 @@ const ProductById = ({ product }: IProps) => {
                                 <button className='btn btn-primary '>
                                     <BsBasket className="text-xl" />
                                     <div className="border-l-[1px] border-gray-200 "></div>
-                                    <span className="text-md lg:text-lg font-thin">افزودن به سبد خرید</span>
+                                    <span className="text-md lg:text-lg font-thin"
+                                    onClick={()=>dispatch(addToCart(({productId:product._id,count:quantity})))}>افزودن به سبد خرید</span>
                                 </button> :
                                 <button className='btn btn-primary ' disabled>
                                     <BsBasket className="text-xl" />
