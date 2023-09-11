@@ -60,9 +60,7 @@ export enum AdminRoles {
 }
 
 
-export enum Theme {
-    System,
-    Dark,
-    Light
+export type Cart = {
+    productId: string
+    count: number
 }
-

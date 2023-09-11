@@ -1,14 +1,15 @@
+import { addToCart,deleteFromCart } from '../../store/shopingCart-slice';
 import { getAllProducts, getProductById } from '@/services/api/product';
-import { addToCart } from '../../store/shopingCart-slice';
+import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai';
 import { useSelector, useDispatch } from 'react-redux';
 import FlipBook from '@/components/Products/FlipBook';
 import type { RootState } from '../../store/store';
+import { BsBasket, BsTrash } from 'react-icons/bs';
 import { separate } from '../../utils/seperator';
+import "react-toastify/dist/ReactToastify.css";
 import { BsChevronLeft } from 'react-icons/bs';
-import React, { ChangeEvent } from 'react';
-import { BsBasket } from 'react-icons/bs';
 import { Product } from '@/models/Types';
-import { useState } from 'react';
+import { toast } from 'react-toastify';
 import Image from 'next/image';
 import Link from 'next/link';
 import Head from 'next/head';
@@ -20,14 +21,28 @@ interface IProps {
 
 const ProductById = ({ product }: IProps) => {
 
-    const [quantity, setQuantity] = useState(1);
     const cartList = useSelector((state: RootState) => state.shopingCart.cartList)
     const dispatch = useDispatch()
-
-    const handleQuantityChnage = (e: any) => {
-        if (e.target.value > 0 && e.target.value <= product.quantity)
-            setQuantity(e.target.value)
+    const isInShopingCart = cartList.find(item => item.productId === product._id);
+    const handleAddToShopingCart = () => {
+        dispatch(addToCart(({ productId: product._id, count: 1 })));
+        toast.success(`${product.name} به سبد خرید اضافه شد.`, {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+        });
     }
+    const handleDeleteFromShopingCart=()=>{
+        dispatch(deleteFromCart(({ productId: product._id, count: 1 })));
+        toast.success(`${product.name} از سبد خرید حذف شد .`, {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+        });
+    }
+
     return (
         <main className=''>
             <Head>
@@ -63,9 +78,7 @@ const ProductById = ({ product }: IProps) => {
                     <div className=' flex justify-center w-full lg:block lg:w-auto'>
                         <FlipBook images={product.images} />
                     </div>
-
                     <div className=''>
-
                         <div className='flex justify-between mt-10'>
                             <div className="flex items-center gap-2 text-lg">
                                 <span className='text-primary-focus'>{separate(product.price)}</span>
@@ -75,15 +88,8 @@ const ProductById = ({ product }: IProps) => {
 
                         <div className="flex items-center gap-1 text-lg mt-6">
                             {product.quantity > 1 ?
-                                <>
-                                    <span className='text-green-500'>{product.quantity} عدد موجود هست</span>
-                                    {/* <GoIssueClosed className="text-green-500" /> */}
-                                </>
-                                : <>
-                                    <span className='text-red-500'>موجود نیست</span>
-                                    {/* <IoCloseCircleOutline className="text-red-500" /> */}
-                                </>}
-
+                                <span className='text-green-500'>{product.quantity} عدد موجود هست</span> :
+                                <span className='text-red-500'>موجود نیست</span>}
                         </div>
 
                         <div className="flex items-center gap-1 text-lg mt-6">
@@ -92,39 +98,41 @@ const ProductById = ({ product }: IProps) => {
                         </div>
 
                         <div className="flex flex-wrap items-start gap-4 mt-20">
-                            <div className="form-control w-full max-w-xs pb-8 relative ">
-                                <input type="number" placeholder="Type here" className="input input-bordered "
-                                    onChange={handleQuantityChnage}
-                                    value={quantity} />
-                                {/* <label className="label absolute bottom-0">
-                                    <span className="label-text-alt text-red-500 ">تعداد نباید بیشتر از {product.quantity} باشد.</span>
-                                </label> */}
-                            </div>
+                            {
+                                !isInShopingCart ?
+                                    (product.quantity ?
+                                        <button className='btn btn-primary'
+                                            onClick={handleAddToShopingCart}>
+                                            <BsBasket className="text-xl" />
+                                            <div className="border-l-[1px] border-gray-200 "></div>
+                                            <span className="text-md lg:text-lg font-thin">افزودن به سبد خرید</span>
+                                        </button> :
+                                        <button className='btn btn-primary ' disabled>
+                                            <BsBasket className="text-xl" />
+                                            <div className="border-l-[1px] border-gray-200 "></div>
+                                            <span className="text-md lg:text-lg font-thin">افزودن به سبد خرید</span>
+                                        </button>) :
+                                    <div className='flex items-center w-[6rem] h-[3rem] 
+                                        text-primary px-2 shadow-md shadow-gray-400 rounded-xl'>
+                                        <span onClick={() => dispatch(addToCart(({ productId: product._id, count: 1 })))}
+                                            className="cursor-pointer"><AiOutlinePlus /></span>
+                                        <span className='w-full text-center'>{isInShopingCart.count}</span>
+                                        {
+                                            isInShopingCart.count === 1 ? 
+                                            <BsTrash className="cursor-pointer text-3xl" onClick={handleDeleteFromShopingCart}/> :                                               
+                                            <AiOutlineMinus className="cursor-pointer"
+                                             onClick={()=>dispatch(deleteFromCart(({ productId: product._id, count: 1 })))}/>                                         
+                                        }
 
-                            {product.quantity ?
-                                <button className='btn btn-primary '>
-                                    <BsBasket className="text-xl" />
-                                    <div className="border-l-[1px] border-gray-200 "></div>
-                                    <span className="text-md lg:text-lg font-thin"
-                                    onClick={()=>dispatch(addToCart(({productId:product._id,count:quantity})))}>افزودن به سبد خرید</span>
-                                </button> :
-                                <button className='btn btn-primary ' disabled>
-                                    <BsBasket className="text-xl" />
-                                    <div className="border-l-[1px] border-gray-200 "></div>
-                                    <span className="text-md lg:text-lg font-thin">افزودن به سبد خرید</span>
-                                </button>
+                                    </div>
                             }
                         </div>
-
                     </div>
 
                     <div className=''>
-                        <div className="flex flex-col gap-8"
-                            dangerouslySetInnerHTML={{ __html: product.description }} />
+                        <div className="flex flex-col gap-8" dangerouslySetInnerHTML={{ __html: product.description }} />
                     </div>
-
                 </div>
-
             </div>
         </main>
     )

@@ -1,4 +1,4 @@
-import {initialCart} from '../../store/shopingCart-slice';
+import { initialCart } from '../../store/shopingCart-slice';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useSelector, useDispatch } from 'react-redux';
 import type { RootState } from '../../store/store';
@@ -7,6 +7,7 @@ import { HiOutlineLogout } from 'react-icons/hi';
 import { useEffect, useState } from 'react';
 import { BsBasket } from 'react-icons/bs';
 import { FaBars } from 'react-icons/fa';
+import { Cart } from '@/models/Types';
 import Image from "next/image";
 import Link from "next/link";
 
@@ -14,31 +15,36 @@ import Link from "next/link";
 
 const Header = () => {
     const [visibleDownNav, setVisibleDownNav] = useState(false);
+    const list = useSelector((state: RootState) => state.shopingCart.cartList)
+    const [cartList, setCartList] = useState<Cart[]>([]);
     const dispatch = useDispatch()
 
     const handleLocalStorage = () => {
         if (typeof window !== 'undefined') {
             if (localStorage.getItem('ShopingCart')) {
                 const cartList = JSON.parse(String(localStorage.getItem("ShopingCart")));
-                console.log(cartList);
                 dispatch(initialCart(cartList))
             }
             else {
                 localStorage.setItem("ShopingCart", '[]');
-                console.log([]);
                 dispatch(initialCart([]))
             }
         }
     }
-    
+
     useEffect(() => {
         handleLocalStorage();
+        setCartList(list)
         window.addEventListener("wheel", e => {
             setVisibleDownNav(e.deltaY < 0 ? false : true);
         })
-    }, []);
+    }, [])
 
-    
+    useEffect(() => {
+        setCartList(list);
+    }, [list]);
+
+
     return (
         <header className=" fixed top-0 left-0 right-0 z-50">
             <nav className={`py-2 px-5 lg:pt-3 backdrop-blur-3xl bg-zinc-900 bg-opacity-80
@@ -71,9 +77,8 @@ const Header = () => {
                                 style={{ transform: 'rotateY(180deg)' }}>
                                 <BsBasket className="text-2xl" />
                             </div>
-                            {/* {shopBag} */}
-                            {/* {cartList.length > 0 ? <span className="px-[5px] rounded-[3px] bottom-0 right-0 text-white
-                                 text-[10px] leading-4 bg-primary absolute">{cartList.length}</span> : ''} */}
+                            {cartList.length > 0 ? <span className="px-[5px] rounded-[3px] bottom-0 right-0 text-white
+                                 text-[10px] leading-4 bg-primary absolute">{cartList.length}</span> : ''}
                         </div>
 
                     </div>
