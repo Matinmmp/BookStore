@@ -63,7 +63,6 @@ export const shopingCartSlice = createSlice({
                 });    
                 saveToLocalStorage(state.cartList);        
             }
-            
         },
 
         initialCart(state, action: PayloadAction<Cart[]>) {

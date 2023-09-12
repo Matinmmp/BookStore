@@ -1,4 +1,4 @@
-export type User = {
+export interface User  {
     _id: string
     firstname: string,
     lastname: string,
@@ -7,7 +7,6 @@ export type User = {
     phoneNumber: string,
     address: string,
     role: string,
-    refreshToken: string,
 }
 
 export type Product = {

@@ -1,6 +1,6 @@
-import axios from "axios";
 import { BASE_URL } from "../../configs/constans";
-// import { toast } from "react-toastify";
+import { toast } from "react-toastify";
+import axios from "axios";
 
 
 const publicAxios = axios.create({
@@ -13,18 +13,12 @@ publicAxios.interceptors.request.use(config => config, error => Promise.reject(e
 publicAxios.interceptors.response.use(res => res,
     error => {
         if (error.response.status === 401) 
-        console.log("Error");
-        
-        //  toast.error('همچین کاربری وجود ندارد', {
-        //     position: "top-right",
-        //     autoClose: 5000,
-        //     hideProgressBar: false,
-        //     closeOnClick: true,
-        //     pauseOnHover: true,
-        //     draggable: true,
-        //     progress: undefined,
-        //     theme: "light",
-        //     });
+        console.log("Error");  
+         toast.error('نام کاربری را اشتباه وارد کردید .', {
+            position: "top-right",
+            autoClose: 3000,
+            closeOnClick: true,
+            });
         return Promise.reject(error);
     });
 
