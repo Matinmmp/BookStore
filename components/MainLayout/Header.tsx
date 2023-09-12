@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import type { RootState } from '../../store/store';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { HiOutlineLogout } from 'react-icons/hi';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { BsBasket } from 'react-icons/bs';
 import { FaBars } from 'react-icons/fa';
@@ -17,6 +18,7 @@ const Header = () => {
     const [visibleDownNav, setVisibleDownNav] = useState(false);
     const list = useSelector((state: RootState) => state.shopingCart.cartList)
     const [cartList, setCartList] = useState<Cart[]>([]);
+    const router = useRouter();
     const dispatch = useDispatch()
 
     const handleLocalStorage = () => {
@@ -30,6 +32,10 @@ const Header = () => {
                 dispatch(initialCart([]))
             }
         }
+    }
+    
+    const handleCart =()=>{
+        router.push('/cart');
     }
 
     useEffect(() => {
@@ -52,7 +58,7 @@ const Header = () => {
 
                 <div className="flex items-center gap-6 w-full" >
 
-                    <Link href={'/home'} className=" w-16" >
+                    <Link href={'/'} className=" w-16" >
                         <Image alt="لوگو" src={'/Images/logo2.png'} width={200} height={200} className="w-full h-full" />
                     </Link>
 
@@ -75,7 +81,7 @@ const Header = () => {
                         <div className="relative">
                             <div className="p-2 rounded-md cursor-pointer"
                                 style={{ transform: 'rotateY(180deg)' }}>
-                                <BsBasket className="text-2xl" />
+                                <BsBasket className="text-2xl" onClick={handleCart}/>
                             </div>
                             {cartList.length > 0 ? <span className="px-[5px] rounded-[3px] bottom-0 right-0 text-white
                                  text-[10px] leading-4 bg-primary absolute">{cartList.length}</span> : ''}
