@@ -12,14 +12,17 @@ const Table = ({products}:IProps) => {
             <table  className="w-full text-left shadow-md min-w-[45rem]" >
                 <thead  className=" text-white flex bg-primary  text-[.9rem]">
                     <tr className="flex w-full justify-around text-center">
-                        <th scope="col" className="px-6 py-3 w-5/12">
+                        <th scope="col" className="px-6 py-3 w-4/12">
                             نام
                         </th>
-                        <th scope="col" className="px-6 py-3 w-3/12">
+                        <th scope="col" className="px-6 py-3 w-2/12">
                              تعداد
                         </th>
                         <th scope="col" className="px-6 py-3 w-3/12">
-                            قیمت
+                             قیمت
+                        </th>
+                        <th scope="col" className="px-6 py-3 w-3/12">
+                            قیمت کل
                         </th>
                     </tr>
                 </thead>

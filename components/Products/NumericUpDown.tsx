@@ -32,7 +32,7 @@ const NumericUpDown = ({ product, quantity }: IProps) => {
     }
 
     return (
-        <div className='flex items-center w-[6rem] h-[3rem] text-primary px-2 shadow-md shadow-gray-400 rounded-xl'>
+        <div className='flex items-center w-[6rem] h-[3rem] text-primary px-2 shadow-md shadow-gray-400 rounded-xl bg-white'>
             <span onClick={handleAddToShopingCart}
                 className="cursor-pointer ">
                     <AiOutlinePlus className={`${product.count === quantity && 'text-blue-200'}`}/>

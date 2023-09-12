@@ -1,7 +1,6 @@
 import publicAxios from "@/services/instance/publiceAxios";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { useSelector, useDispatch } from 'react-redux';
-import type { RootState } from '../../store/store';
+import {  useDispatch } from 'react-redux';
 import { setUser } from "@/store/user-slice";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
