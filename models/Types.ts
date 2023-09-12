@@ -62,4 +62,7 @@ export enum AdminRoles {
 export type Cart = {
     productId: string
     count: number
+    image:String
+    price:number,
+    name:string
 }

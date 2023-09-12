@@ -1,6 +1,5 @@
-import { addToCart,deleteFromCart } from '../../store/shopingCart-slice';
+import { addToCart, deleteFromCart } from '../../store/shopingCart-slice';
 import { getAllProducts, getProductById } from '@/services/api/product';
-import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai';
 import { useSelector, useDispatch } from 'react-redux';
 import FlipBook from '@/components/Products/FlipBook';
 import type { RootState } from '../../store/store';
@@ -13,6 +12,7 @@ import { toast } from 'react-toastify';
 import Image from 'next/image';
 import Link from 'next/link';
 import Head from 'next/head';
+import NumericUpDown from '@/components/Products/NumericUpDown';
 
 
 interface IProps {
@@ -25,7 +25,7 @@ const ProductById = ({ product }: IProps) => {
     const dispatch = useDispatch()
     const isInShopingCart = cartList.find(item => item.productId === product._id);
     const handleAddToShopingCart = () => {
-        dispatch(addToCart(({ productId: product._id, count: 1 })));
+        dispatch(addToCart(({ productId: product._id, count: 1, price: product.price, image: product.images[0], name: product.name })));
         toast.success(`${product.name} به سبد خرید اضافه شد.`, {
             position: "top-right",
             autoClose: 3000,
@@ -33,8 +33,8 @@ const ProductById = ({ product }: IProps) => {
             closeOnClick: true,
         });
     }
-    const handleDeleteFromShopingCart=()=>{
-        dispatch(deleteFromCart(({ productId: product._id, count: 1 })));
+    const handleDeleteFromShopingCart = () => {
+        dispatch(deleteFromCart(({ productId: product._id, count: 1, price: product.price, image: product.images[0], name: product.name })));
         toast.success(`${product.name} از سبد خرید حذف شد .`, {
             position: "top-right",
             autoClose: 3000,
@@ -98,33 +98,20 @@ const ProductById = ({ product }: IProps) => {
                         </div>
 
                         <div className="flex flex-wrap items-start gap-4 mt-20">
-                            {
-                                !isInShopingCart ?
-                                    (product.quantity ?
-                                        <button className='btn btn-primary'
-                                            onClick={handleAddToShopingCart}>
-                                            <BsBasket className="text-xl" />
-                                            <div className="border-l-[1px] border-gray-200 "></div>
-                                            <span className="text-md lg:text-lg font-thin">افزودن به سبد خرید</span>
-                                        </button> :
-                                        <button className='btn btn-primary ' disabled>
-                                            <BsBasket className="text-xl" />
-                                            <div className="border-l-[1px] border-gray-200 "></div>
-                                            <span className="text-md lg:text-lg font-thin">افزودن به سبد خرید</span>
-                                        </button>) :
-                                    <div className='flex items-center w-[6rem] h-[3rem] 
-                                        text-primary px-2 shadow-md shadow-gray-400 rounded-xl'>
-                                        <span onClick={() => dispatch(addToCart(({ productId: product._id, count: 1 })))}
-                                            className="cursor-pointer"><AiOutlinePlus /></span>
-                                        <span className='w-full text-center'>{isInShopingCart.count}</span>
-                                        {
-                                            isInShopingCart.count === 1 ? 
-                                            <BsTrash className="cursor-pointer text-3xl" onClick={handleDeleteFromShopingCart}/> :                                               
-                                            <AiOutlineMinus className="cursor-pointer"
-                                             onClick={()=>dispatch(deleteFromCart(({ productId: product._id, count: 1 })))}/>                                         
-                                        }
-
-                                    </div>
+                            {!isInShopingCart ?
+                                (product.quantity ?
+                                    <button className='btn btn-primary'
+                                        onClick={handleAddToShopingCart}>
+                                        <BsBasket className="text-xl" />
+                                        <div className="border-l-[1px] border-gray-200 "></div>
+                                        <span className="text-md lg:text-lg font-thin">افزودن به سبد خرید</span>
+                                    </button> :
+                                    <button className='btn btn-primary ' disabled>
+                                        <BsBasket className="text-xl" />
+                                        <div className="border-l-[1px] border-gray-200 "></div>
+                                        <span className="text-md lg:text-lg font-thin">افزودن به سبد خرید</span>
+                                    </button>) :
+                                    <NumericUpDown product={isInShopingCart} quantity={product.quantity}/>
                             }
                         </div>
                     </div>

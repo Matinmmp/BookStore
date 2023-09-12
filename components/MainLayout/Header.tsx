@@ -4,10 +4,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import type { RootState } from '../../store/store';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { HiOutlineLogout } from 'react-icons/hi';
+import {FiShoppingCart} from 'react-icons/fi';
 import { setUser } from "@/store/user-slice";
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { BsBasket } from 'react-icons/bs';
 import { FaBars } from 'react-icons/fa';
 import { Cart } from '@/models/Types';
 import Image from "next/image";
@@ -106,7 +106,7 @@ const Header = () => {
                         <div className="relative">
                             <div className="p-2 rounded-md cursor-pointer"
                                 style={{ transform: 'rotateY(180deg)' }}>
-                                <BsBasket className="text-2xl" onClick={handleCart} />
+                                <FiShoppingCart className="text-2xl" onClick={handleCart} />
                             </div>
                             {cartList.length > 0 ? <span className="px-[5px] rounded-[3px] bottom-0 right-0 text-white
                                  text-[10px] leading-4 bg-primary absolute">{cartList.length}</span> : ''}
