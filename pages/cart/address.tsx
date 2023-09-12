@@ -1,9 +1,31 @@
 import { MdDriveFileRenameOutline } from 'react-icons/md';
 import { FiShoppingCart } from 'react-icons/fi';
 import { BiMap } from 'react-icons/bi';
+import { useState } from 'react';
+import DatePicker, { Calendar, DateObject } from 'react-multi-date-picker';
+import persian from "react-date-object/calendars/persian";
+import persian_fa from "react-date-object/locales/persian_fa";
 
+
+
+
+function convertPersianToGregorian(persianDate: any) {
+    const persianDigits = "۰۱۲۳۴۵۶۷۸۹";
+    const gregorianDate = persianDate.replace(/[۰-۹]/g, (char: any) => persianDigits.indexOf(char));
+    return gregorianDate;
+}
 
 const address = () => {
+
+    var dateFormat = new Intl.DateTimeFormat("fa", { year: "numeric", month: "2-digit", day: "2-digit" });
+    
+    const today = new Date();
+    const tomorrow = new Date(today.getTime() + 24 * 60 * 60 * 1000);
+    const tomorrowTick = tomorrow.getTime();
+    const tomorrow_date = convertPersianToGregorian(dateFormat.format(tomorrowTick));
+    const [date, setDate] = useState(tomorrow_date)
+    console.log(date)
+
     return (
         <section className='px-[8rem] pt-[10rem]'>
             <div className="w-full flex mb-[3rem]">
@@ -23,11 +45,23 @@ const address = () => {
                 </ul>
             </div>
             <div className='flex gap-4'>
-                <div>
+                <div className='w-1/2'>
 
                 </div>
-                <div>
-                    
+
+                <div className='w-1/2 flex flex-col items-center gap-4'>
+
+                    <div>
+                        <DatePicker
+                            value={tomorrow_date}
+                            onChange={(e)=>setDate(e?.toString())}
+                            minDate={tomorrow_date}
+                            calendar={persian}
+                            locale={persian_fa}
+                            calendarPosition="bottom-right"
+                        />
+                    </div>
+
                 </div>
 
             </div>
