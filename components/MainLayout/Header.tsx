@@ -19,7 +19,6 @@ const Header = () => {
     const [visibleDownNav, setVisibleDownNav] = useState(false);
     const list = useSelector((state: RootState) => state.shopingCart.cartList)
     const user = useSelector((state: RootState) => state.user.user);
-
     const [cartList, setCartList] = useState<Cart[]>([]);
     const router = useRouter();
     const dispatch = useDispatch()
@@ -50,7 +49,6 @@ const Header = () => {
             }
         }
     }
-
 
     const handleCart = () => {
         router.push('/cart');
@@ -92,11 +90,11 @@ const Header = () => {
                     <div className="hidden lg:flex items-center justify-center gap-1 text-white">
                         {
                             user ?
-                                <bottun onClick={()=>dispatch(setUser(''))} className="btn btn-primary flex items-center gap-2 ">
+                                <button onClick={()=>dispatch(setUser(''))} className="btn btn-primary flex items-center gap-2 ">
                                     <HiOutlineLogout className="text-2xl" style={{ transform: 'rotateY(180deg)' }} />
                                    <span className="font-semibold text-xs">خروج </span> 
                                 
-                                </bottun> :
+                                </button> :
                                 <Link href={'/user/login'}  className="btn btn-primary flex items-center gap-2 ">
                                     <HiOutlineLogout className="text-2xl" style={{ transform: 'rotateY(180deg)' }} />
                                         <span className="font-semibold text-xs">ورود | ثبت‌نام</span>

@@ -16,12 +16,21 @@ type Inputs = {
 
 const login = () => {
     const { register, reset, formState: { errors }, handleSubmit } = useForm<Inputs>();
-    const user = useSelector((state: RootState) => state.user.user);
     const dispatch = useDispatch()
     const router = useRouter();
-    if (user)
-        router.push('/');
+    const handleLocalStorageForUser = () => {
+        if (typeof window !== 'undefined') {
+            if (localStorage.getItem('User') !== null) {
+                const user = JSON.parse(String(localStorage.getItem("User")));
+                if (user) {
+                    console.log(user)
+                    router.push('/');
+                }
+            }
+        }
+    }
 
+    handleLocalStorageForUser();
     const onSubmit: SubmitHandler<Inputs> = (data) => {
         const user = {
             username: data.username,
@@ -34,9 +43,8 @@ const login = () => {
                 autoClose: 3000,
                 closeOnClick: true,
             });
-            // router.back();
-        }).catch(() => console.log("no")
-        );
+            router.back();
+        }).catch(() => console.log("no"));
     }
 
     return (

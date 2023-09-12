@@ -18,8 +18,7 @@ export default function App({ Component, pageProps }: AppProps) {
             <Component {...pageProps} />
         </QueryClientProvider>
         <ToastContainer/>
-    </Provider>
-)
+    </Provider>)
     return (
         <Provider store={store}>
             <QueryClientProvider client={queryClient}>

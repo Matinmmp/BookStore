@@ -42,13 +42,13 @@ const ProductsSlider = ({ products, title }: IProps) => {
         shadow-inner shadow-success'>
             <Link href={`/product/${products[0].category}/new?page=1`} 
             className='text-3xl hover:text-primary transition-all '>{title}</Link>
-            <div className='mt-6 h-[28rem] px-4 flex items-center gap-4 overflow-x-auto ' >
+            <div className='mt-3 h-[30rem] px-4 flex gap-4 overflow-x-auto ' >
                 <Swiper
                     slidesPerView={slidesPerView}
                     spaceBetween={10}
                     freeMode={true}
                     modules={[Pagination]}
-                    className=" w-full h-[28rem] px-4">
+                    className=" w-full h-[30rem] px-4">
                     {products.map((product) =>
                         <SwiperSlide key={product._id} className='pt-4'>
                             <ProductItem product={product} />
