@@ -6,3 +6,7 @@ export const getAllOrder = async (pageNumber:Number,deliverStatus:boolean) => {
     
     return await respons.data;
 }
+
+export const addOrder =async(order:any)=>{
+    await publicAxios.post('/orders',order);
+}

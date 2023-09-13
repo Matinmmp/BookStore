@@ -22,6 +22,8 @@ interface IProps {
 const ProductById = ({ product }: IProps) => {
 
     const cartList = useSelector((state: RootState) => state.shopingCart.cartList)
+    console.log(cartList);
+    
     const dispatch = useDispatch()
     const isInShopingCart = cartList.find(item => item.productId === product._id);
     const handleAddToShopingCart = () => {

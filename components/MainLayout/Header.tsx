@@ -22,16 +22,16 @@ const Header = () => {
     const [cartList, setCartList] = useState<Cart[]>([]);
     const router = useRouter();
     const dispatch = useDispatch()
-
+    console.log(list)
     const handleLocalStorageForShopingCart = () => {
         if (typeof window !== 'undefined') {
             if (localStorage.getItem('ShopingCart')) {
-                const cartList = JSON.parse(String(localStorage.getItem("ShopingCart")));
-                dispatch(initialCart(cartList))
+                const info = JSON.parse(String(localStorage.getItem("ShopingCart")));
+                dispatch(initialCart(info))
             }
             else {
                 localStorage.setItem("ShopingCart", '[]');
-                dispatch(initialCart([]))
+                dispatch(initialCart('' as any))
             }
         }
     }

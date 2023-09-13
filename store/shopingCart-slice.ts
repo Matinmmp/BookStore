@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { Cart } from '@/models/Types';
 
 
-const saveToLocalStorage = (shopingCart: Cart[]) => {
+const saveToLocalStorage = (shopingCart:any) => {
     if (typeof window !== 'undefined') {
         const jsonString = JSON.stringify(shopingCart);
         localStorage.setItem("ShopingCart", jsonString);
@@ -12,10 +12,14 @@ const saveToLocalStorage = (shopingCart: Cart[]) => {
 
 export interface ShopingCart {
     cartList: Cart[]
+    address:String,
+    deliveryData:any
 }
 
 const initialState: ShopingCart = {
-    cartList: []
+    cartList: [],
+    address:'',
+    deliveryData:''
 }
 
 
@@ -35,11 +39,11 @@ export const shopingCartSlice = createSlice({
                     }
                     return item;
                 })
-                saveToLocalStorage(state.cartList);
+                saveToLocalStorage(state);
                 return;
             }
             state.cartList.push(action.payload);
-            saveToLocalStorage(state.cartList);
+            saveToLocalStorage(state);
         },
         deleteFromCart(state, action: PayloadAction<Cart>) {
             const productInCart = state.cartList.find((item) => item.productId === action.payload.productId)
@@ -49,7 +53,7 @@ export const shopingCartSlice = createSlice({
                         if (item.productId !== action.payload.productId)
                             return item;
                     });
-                    saveToLocalStorage(state.cartList);
+                    saveToLocalStorage(state);
                     return;
                 }    
                 state.cartList = state.cartList.map((item) => {
@@ -61,18 +65,32 @@ export const shopingCartSlice = createSlice({
                     }
                     return item;
                 });    
-                saveToLocalStorage(state.cartList);        
+                saveToLocalStorage(state);        
             }
         },
+        addDate(state, action: any){
+            state.address = action.payload.address;
+            state.deliveryData = action.payload.deliveryData
+            saveToLocalStorage(state);        
 
-        initialCart(state, action: PayloadAction<Cart[]>) {
-            state.cartList = action.payload
+        },
+        deleteAllInformation(state){
+            state.cartList = []
+            saveToLocalStorage(state);  
+        },
+        initialCart(state, action:any) {
+            state.cartList = action.payload.cartList;
+            state.address = action.payload.address;
+            state.deliveryData = action.payload.deliveryData;
+
+            // saveToLocalStorage(state); 
         }
+
     },
 })
 
 
-export const { initialCart, addToCart, deleteFromCart } = shopingCartSlice.actions
+export const { initialCart, addToCart, deleteFromCart,addDate,deleteAllInformation } = shopingCartSlice.actions
 
 export default shopingCartSlice.reducer
 

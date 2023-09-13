@@ -1,18 +1,19 @@
-import NeshanMap, { OlMap, Ol } from "@neshan-maps-platform/react-openlayers";
-import DatePicker, { Calendar, DateObject } from 'react-multi-date-picker';
+import { Calendar } from 'react-multi-date-picker';
 import "@neshan-maps-platform/react-openlayers/dist/style.css";
 import persian_fa from "react-date-object/locales/persian_fa";
-import { MdDriveFileRenameOutline } from 'react-icons/md';
 import persian from "react-date-object/calendars/persian";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { useState, useEffect, useRef } from 'react';
-import { FiShoppingCart } from 'react-icons/fi';
-import { BiMap } from 'react-icons/bi';
-import React from 'react';
+import { useState, useEffect } from 'react';
+import type { RootState } from '../../store/store';
+import { useRouter } from "next/navigation";
+import { useSelector, useDispatch } from 'react-redux';
+import { addDate } from '../../store/shopingCart-slice';
 
 type Inputs = {
     name: string,
+    famiy: string
     address: string,
+    phone: string
 }
 
 function convertPersianToGregorian(persianDate: any) {
@@ -24,64 +25,69 @@ function convertPersianToGregorian(persianDate: any) {
 const address = () => {
 
     var dateFormat = new Intl.DateTimeFormat("fa", { year: "numeric", month: "2-digit", day: "2-digit" });
-    const { register, reset, formState: { errors }, handleSubmit } = useForm<Inputs>();
+    const { register, reset, formState: { errors }, handleSubmit, getValues } = useForm<Inputs>();
+    const user = useSelector((state: RootState) => state.user.user);
     const today = new Date();
     const tomorrow = new Date(today.getTime() + 24 * 60 * 60 * 1000);
     const tomorrowTick = tomorrow.getTime();
     const tomorrow_date = convertPersianToGregorian(dateFormat.format(tomorrowTick));
     const [date, setDate] = useState(tomorrow_date);
+    const router = useRouter();
+    const dispatch = useDispatch()
 
 
     const onSubmit: SubmitHandler<Inputs> = (data) => {
-        // const user = {
-        //     username: data.username,
-        //     password: data.password
-        // }
-
+        dispatch(addDate({address:getValues('address'),deliveryData:date}));
+        router.push('http://localhost:5173/');
     }
-    // const mapRef = useRef<any>(null)
-    // const [ol, setOl] = useState<Ol>()
-    // const [olMap, setOlMap] = useState<OlMap>()
-    // const onInit = (ol: Ol, map: OlMap) => {
-    //     setOl(ol)
-    //     setOlMap(map)
-    //     console.log(ol)
-    //     const url = `https://api.neshan.org/v5/reverse?lat=LATITUDE&lng=LONGITUDE`
-    //     setTimeout(() => {
-    //         const view = map.getView()
-    //         view.animate({
-    //             center: (ol.proj.fromLonLat)([
-    //                 51.36281969540723, 35.69672648316882,
-    //             ]),
-    //             zoom: 12,
-    //             duration: 1000,
-    //         })
-    //     }, 5000)
-    // }
-    // useEffect(() => {
-    //     const interval = setInterval(() => {
-    //         if (mapRef.current) {
-    //             // console.log(mapRef.current.map);
-    //             clearInterval(interval)
-    //         }
-    //     }, 1000)
-    //     return () => clearInterval(interval)
-    // }, [])
+
+    useEffect(() => {
+        !user && router.push('/')
+    }, [user])
 
     return (
         <section className='px-4 md:px-[4rem] lg:px-[8rem] pt-[5rem] lg:pt-[10rem]'>
 
             <div className='flex flex-wrap md:flex-nowrap gap-4'>
 
-                <form onSubmit={handleSubmit(onSubmit)} className='w-full md:w-1/2 flex flex-col gap-4 order-2'>
+                <form onSubmit={handleSubmit(onSubmit)} className='w-full md:w-1/2 flex flex-col  order-2'>
                     <div className="form-control w-full relative pb-8">
-                        <label className="label">نام گیرنده</label>
+                        <label className="label">نام </label>
                         <input type="text" placeholder="نام گیرنده را وارد کنید . "
-                            {...register('name', { required: "نام کاربری را وارد کنید" })}
+                            {...register('name', { required: "نام گیرنده را وارد کنید . " })}
                             className="input input-bordered input-primary w-full text-base-content" />
                         {errors.name &&
                             <label className="label text-error absolute bottom-0">
                                 <span className="label-text-alt text-error">{errors.name.message}</span>
+                            </label>}
+                    </div>
+                    <div className="form-control w-full relative pb-8">
+                        <label className="label">نام خانوادگی</label>
+                        <input type="text" placeholder="نام خانوادگی گیرنده را وارد کنید ."
+                            {...register('famiy', { required: "نام خانوادگی گیرنده را وارد کنید " })}
+                            className="input input-bordered input-primary w-full text-base-content" />
+                        {errors.famiy &&
+                            <label className="label text-error absolute bottom-0">
+                                <span className="label-text-alt text-error">{errors.famiy.message}</span>
+                            </label>}
+                    </div>
+                    <div className="form-control w-full relative pb-8">
+                        <label className="label">شماره تلفن </label>
+                        <input type="text" placeholder="شماره تلفن را وارد کنید ."
+
+                            {...register('phone',
+                                {
+                                    required: "شماره تلفن را وارد کنید . ",
+                                    pattern: {
+                                        value: new RegExp("^(\\+98|0)?9\\d{9}$"),
+                                        message: 'لطفا شماره تلفن معتبر وراد کنید .',
+                                    }
+                                })}
+
+                            className="input input-bordered input-primary w-full text-base-content" />
+                        {errors.phone &&
+                            <label className="label text-error absolute bottom-0">
+                                <span className="label-text-alt text-error">{errors.phone.message}</span>
                             </label>}
                     </div>
                     <div className="form-control w-full relative pb-8">
@@ -105,7 +111,7 @@ const address = () => {
                     ></NeshanMap> */}
                 </form>
 
-                <div className='w-full md:w-1/2 flex flex-col items-center gap-4 order-1 -z-50'>
+                <div className='w-full md:w-1/2 flex flex-col items-center gap-4 order-1 z-0'>
                     <div className="flex flex-col gap-4">
                         <span>تاریخ تحویل : {date}</span>
                         <Calendar
@@ -118,9 +124,6 @@ const address = () => {
                     </div>
                 </div>
 
-            </div>
-            <div className="absolute bottom-0 left-0 right-0 bg-red-600">
-                    sdf
             </div>
         </section>
     )
