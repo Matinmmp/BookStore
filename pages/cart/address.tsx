@@ -39,8 +39,6 @@ const address = () => {
         // }
 
     }
-
-
     // const mapRef = useRef<any>(null)
     // const [ol, setOl] = useState<Ol>()
     // const [olMap, setOlMap] = useState<OlMap>()
@@ -71,11 +69,11 @@ const address = () => {
     // }, [])
 
     return (
-        <section className='px-[8rem] pt-[10rem]'>
+        <section className='px-4 md:px-[4rem] lg:px-[8rem] pt-[5rem] lg:pt-[10rem]'>
 
-            <div className='flex gap-4'>
+            <div className='flex flex-wrap md:flex-nowrap gap-4'>
 
-                <form onSubmit={handleSubmit(onSubmit)} className='w-1/2 flex flex-col gap-4'>
+                <form onSubmit={handleSubmit(onSubmit)} className='w-full md:w-1/2 flex flex-col gap-4 order-2'>
                     <div className="form-control w-full relative pb-8">
                         <label className="label">نام گیرنده</label>
                         <input type="text" placeholder="نام گیرنده را وارد کنید . "
@@ -107,7 +105,7 @@ const address = () => {
                     ></NeshanMap> */}
                 </form>
 
-                <div className='w-1/2 flex flex-col items-center gap-4'>
+                <div className='w-full md:w-1/2 flex flex-col items-center gap-4 order-1 -z-50'>
                     <div className="flex flex-col gap-4">
                         <span>تاریخ تحویل : {date}</span>
                         <Calendar
@@ -120,6 +118,9 @@ const address = () => {
                     </div>
                 </div>
 
+            </div>
+            <div className="absolute bottom-0 left-0 right-0 bg-red-600">
+                    sdf
             </div>
         </section>
     )
