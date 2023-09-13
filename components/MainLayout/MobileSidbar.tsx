@@ -18,7 +18,7 @@ const MobileSidbar = () => {
                     <AiOutlineHome className="w-6 h-6" />
                     <span className="text-sm">خانه</span>
                 </Link>
-                <Link href={'/'} className="flex flex-col items-center gap-1">
+                <Link href={'/product/64dd173b0e366d6edaece779/new?page=1'}className="flex flex-col items-center gap-1">
                     <BiCategory className="w-6 h-6" />
                     <span className="text-sm">دسته بندی</span>
                 </Link>

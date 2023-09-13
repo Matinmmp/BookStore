@@ -124,13 +124,10 @@ const Header = () => {
                             className="py-3 hidden lg:flex items-center w-full z-10 ">
                             <div className="flex items-center justify-start gap-1 cursor-pointer text-white">
                                 <FaBars />
-                                <span className="text-sm">دسته بندی کتاب ها</span>
+                                <Link href={'/product/64dd173b0e366d6edaece779/new?page=1'} className="text-sm">دسته بندی کتاب ها</Link>
                             </div>
                             <div className="divider lg:divider-horizontal" style={{ marginInline: '.5rem' }}></div>
                             <ul className="flex items-center gap-4 text-xs text-white">
-                                <li><Link href={'/'} >آخرینها</Link></li>
-                                <li><Link href={'/'} >بالاترین امتیازها</Link></li>
-                                <li><Link href={'/'} >همه دسته بندی ها</Link></li>
                                 <li><Link href={'/about'} >درباره ما</Link></li>
                                 <li><Link href={'/contact'} >ارتباط با ما</Link></li>
                                 <div className="divider lg:divider-horizontal" style={{ marginInline: '.5rem' }}></div>
