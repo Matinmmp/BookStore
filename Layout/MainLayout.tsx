@@ -1,5 +1,6 @@
 import Footer from "@/components/MainLayout/Footer";
 import Header from "@/components/MainLayout/Header";
+import MobileSidbar from "@/components/MainLayout/MobileSidbar";
 import { Fragment } from "react"
 
 
@@ -10,13 +11,14 @@ interface IProps {
 
 const MainLayout = ({ children }: IProps) => {
     return (
-        <Fragment>
+        <div className="relative">
             <Header />
-            <main className="md:pb-4 ">
+            <main style={{paddingBlock:'0 5rem'}}>
                 {children}
             </main>
-            <Footer />
-        </Fragment>
+            <Footer  />
+            <MobileSidbar/>
+        </div>
     )
 }
 
