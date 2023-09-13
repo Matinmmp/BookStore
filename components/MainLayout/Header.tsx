@@ -40,7 +40,6 @@ const Header = () => {
         if (typeof window !== 'undefined') {
             if (localStorage.getItem('User') !== null) {
                 const user = JSON.parse(String(localStorage.getItem("User")));
-                console.log(user);
                 dispatch(setUser(user))
             }
             else {

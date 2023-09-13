@@ -9,9 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@neshan-maps-platform/react-openlayers": "^2.0.16",
     "@reduxjs/toolkit": "^1.9.5",
     "@tanstack/react-query": "^4.33.0",
     "@types/node": "20.4.5",
+    "@types/ol": "^5.3.8",
     "@types/react": "18.2.17",
     "@types/react-dom": "18.2.7",
     "axios": "^1.5.0",
