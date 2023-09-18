@@ -2,15 +2,17 @@ import { Product } from '@/models/Types';
 import Link from 'next/link';
 import React, { useRef, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { FreeMode, Pagination } from 'swiper/modules';
-import { BsBasket } from 'react-icons/bs';
-import Image from 'next/image';
+import { Pagination } from 'swiper/modules';
 import { useEffect } from 'react';
-import { separate } from '../../utils/seperator';
-import 'swiper/css';
-import 'swiper/css/free-mode';
-import 'swiper/css/pagination';
+
+// import 'swiper/css';
+// import 'swiper/css/free-mode';
+// import 'swiper/css/pagination';
 import ProductItem from './ProductItem';
+
+
+import { useKeenSlider } from "keen-slider/react"
+import "keen-slider/keen-slider.min.css"
 
 interface IProps {
     products: Product[],
@@ -18,6 +20,24 @@ interface IProps {
 }
 
 const ProductsSlider = ({ products, title }: IProps) => {
+
+
+    const [sliderRef] = useKeenSlider<HTMLDivElement>({
+        loop: false,
+        mode: "snap",
+        rtl: true,
+        slides: { perView: "auto",spacing:15 },
+    })
+
+    const [ref] = useKeenSlider<HTMLDivElement>({
+        loop: true,
+        mode: "free",
+        slides: {
+          perView: 3,
+          spacing: 15,
+        },
+      })
+
 
     const [slidesPerView, setSlidesPerView] = useState(0);
     useEffect(() => {
@@ -38,11 +58,10 @@ const ProductsSlider = ({ products, title }: IProps) => {
     }, [])
 
     return (
-        <section className='w-full px-4 pt-4 mt-[4rem] bg-base-300 rounded-xl 
-        shadow-inner shadow-success'>
-            <Link href={`/product/${products[0].category}/new?page=1`} 
-            className='text-3xl hover:text-primary transition-all '>{title}</Link>
-            <div className='mt-3 h-[30rem] px-4 flex gap-4 overflow-x-auto ' >
+        <section className='w-full px-4 pt-4 mt-[4rem]'>
+            <Link href={`/product/${products[0].category}/new?page=1`}
+                className='text-3xl hover:text-primary transition-all '>{title}</Link>
+            {/* <div className='mt-3 h-[30rem] px-4 flex gap-4 overflow-x-auto ' >
                 <Swiper
                     slidesPerView={slidesPerView}
                     spaceBetween={10}
@@ -55,6 +74,12 @@ const ProductsSlider = ({ products, title }: IProps) => {
                         </SwiperSlide>
                     )}
                 </Swiper>
+            </div> */}
+
+            <div ref={sliderRef} className="keen-slider h-[30rem] py-4">
+                {products.map((product) =>
+                    <ProductItem product={product} key={product._id} />
+                )}
             </div>
         </section>
     );

@@ -12,8 +12,8 @@ interface IProps {
 const ProductItem = ({ product }: IProps) => {
 
     return (
-        <div className=' border-[1px] border-primary bg-white 
-         border-opacity-50 hover:scale-[1.03] transition-all rounded-md' >
+        <div className=' border-[1px] border-primary bg-white
+         border-opacity-50 hover:scale-[1.03] transition-all rounded-md keen-slider__slide' style={{minWidth:"15rem"}}>
             <div className='w-full h-full p-[6px] flex flex-col gap-3'>
 
                 <Link href={`/product/${product._id}`} >
