@@ -4,6 +4,7 @@ import Hero from '../components/Home/Hero';
 import { Product } from '@/models/Types';
 import { getAllProducts, getProductByCategoryId } from '@/services/api/product';
 import ProductsSlider from '@/components/Home/ProductsSlider';
+import Banner from '@/components/Home/Banner';
 
 
 interface IProps {
@@ -22,8 +23,8 @@ export default function HomePage({ productsForHero, fantsyProduct, horrorProduct
                 <link rel="icon" href="/Images/logo2.png" />
             </Head>
 
-            <div className='p-'>
-                <Hero products={productsForHero} />
+            <div >
+                <Banner/>
             </div>
 
            <main className='px-4'>

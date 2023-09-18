@@ -8,6 +8,7 @@ import type { AppProps } from 'next/app';
 import { Provider } from 'react-redux';
 import '@/styles/globals.css';
 
+
 const queryClient = new QueryClient()
 export default function App({ Component, pageProps }: AppProps) {
     const router =usePathname();

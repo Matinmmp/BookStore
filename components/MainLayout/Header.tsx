@@ -1,17 +1,18 @@
 import { initialCart } from '../../store/shopingCart-slice';
-import { AnimatePresence, motion } from 'framer-motion';
 import { useSelector, useDispatch } from 'react-redux';
 import type { RootState } from '../../store/store';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { HiOutlineLogout } from 'react-icons/hi';
-import {FiShoppingCart} from 'react-icons/fi';
+import { FiShoppingCart } from 'react-icons/fi';
 import { setUser } from "@/store/user-slice";
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { FaBars } from 'react-icons/fa';
 import { Cart } from '@/models/Types';
 import Image from "next/image";
 import Link from "next/link";
+import { IoLogIn } from 'react-icons/io5';
+import { BsPersonFillAdd } from 'react-icons/bs';
+import { IoIosArrowDown } from 'react-icons/io';
 
 
 
@@ -57,9 +58,6 @@ const Header = () => {
         handleLocalStorageForShopingCart();
         handleLocalStorageForUser();
         setCartList(list)
-        window.addEventListener("wheel", e => {
-            setVisibleDownNav(e.deltaY < 0 ? false : true);
-        })
     }, [])
 
     useEffect(() => {
@@ -68,39 +66,23 @@ const Header = () => {
 
 
     return (
-        <header className=" fixed top-0 left-0 right-0 z-50">
-            <nav className={`py-2 px-5 lg:pt-3 backdrop-blur-3xl bg-zinc-900 bg-opacity-80
-             flex flex-col  z-20 ${visibleDownNav && 'py-3'}`}>
+        <header className="w-full px-4 sm:px-8 lg:px-4 2xl:px-32 pt-8">
+            <div className='bg-base-100 p-8 px-4 lg:px-12 rounded-2xl'>
+                <div className="flex items-center justify-between gap-2">
+                    <div>
+                        <Link href={'/'} className='flex items-center '>
+                            <h3 className='hidden lg:block text-3xl pt-2 text-info'>MeBook</h3>
+                            <Image alt="logo" src={'/Images/logo2.png'} width={200} height={200} className='w-16 h-10' />
+                        </Link>
+                    </div>
 
-                <div className="flex items-center gap-6 w-full" >
-
-                    <Link href={'/'} className=" w-16" >
-                        <Image alt="لوگو" src={'/Images/logo2.png'} width={200} height={200} className="w-full h-full" />
-                    </Link>
-
-                    <div className="flex w-full lg:w-[40rem] place-items-center bg-base-100 rounded-lg border-primary border-[1px]">
+                    <div className="hidden md:flex w-[25rem] lg:w-[35rem] place-items-center bg-base-300 rounded-xl p-1 px-1">
                         <AiOutlineSearch className="text-xl w-8" />
-                        <input type="text" placeholder="جستجو" className="input text-sm h-10 w-full "
+                        <input type="text" placeholder="جستجو" className="input text-sm h-10 w-full bg-base-300 "
                             style={{ border: 'none !important', outline: 'none !important' }} />
                     </div>
 
-                    <div className="flex-1"></div>
-
-                    <div className="hidden lg:flex items-center justify-center gap-1 text-white">
-                        {
-                            user ?
-                                <button onClick={()=>dispatch(setUser(''))} className="btn btn-primary flex items-center gap-2 ">
-                                    <HiOutlineLogout className="text-2xl" style={{ transform: 'rotateY(180deg)' }} />
-                                   <span className="font-semibold text-xs">خروج </span> 
-                                
-                                </button> :
-                                <Link href={'/user/login'}  className="btn btn-primary flex items-center gap-2 ">
-                                    <HiOutlineLogout className="text-2xl" style={{ transform: 'rotateY(180deg)' }} />
-                                        <span className="font-semibold text-xs">ورود | ثبت‌نام</span>
-                                </Link>
-                        }
-
-                        <div className="divider lg:divider-horizontal " style={{ marginInline: '.5rem' }}></div>
+                    <div className="flex gap-4 items-center">
 
                         <div className="relative">
                             <div className="p-2 rounded-md cursor-pointer"
@@ -111,35 +93,41 @@ const Header = () => {
                                  text-[10px] leading-4 bg-primary absolute">{cartList.length}</span> : ''}
                         </div>
 
+                        <div>
+                            <div className="rounded-lg flex cursor-pointer bg-base-300 w-[10rem] h-[2.5rem] text-primary">
+                                <span className=" hover:bg-primary hover:bg-opacity-70 hover:text-white transition-all rounded-s-lg 
+                                    text-primary h-full flex items-center justify-center gap-1 px-4 me-[-.8rem] text-sm">
+                                    <span>ورود</span>
+                                    <IoLogIn className="text-2xl" />
+                                </span>
+                                <span className=" ms-auto rounded-lg bg-primary hover:bg-opacity-70 transition-all 
+                                 h-full flex items-center justify-center gap-1 px-3 text-white text-sm">
+                                    عضویت
+                                    <BsPersonFillAdd className="text-xl" />
+                                </span>
+
+                            </div>
+                        </div>
                     </div>
+                </div>
+            </div>
+            <div className='hidden lg:flex bg-gray-300 p-5 mx-14 rounded-b-3xl'>
+                <div className="flex items-center gap-10 mx-auto">
+                    <Link href={'/'} className="hover:text-primary transition-all">خانه</Link>
+                    <Link href={'/'} className="hover:text-primary transition-all flex items-center gap-1">
+                        دسته بندی ها
+                        <IoIosArrowDown className="text-lg" />
+                    </Link>
+                    <Link href={'/'} className="hover:text-primary transition-all">درباره ی ما</Link>
+                    <Link href={'/'} className="hover:text-primary transition-all">ارتباط با ما</Link>
 
                 </div>
-
-                <AnimatePresence>
-                    {!visibleDownNav &&
-                        <motion.div layout
-                            initial={{ y: -35, opacity: 0 }}
-                            animate={{ y: 0, opacity: 100 }}
-                            transition={{ ease: "easeOut", duration: .2 }}
-                            className="py-3 hidden lg:flex items-center w-full z-10 ">
-                            <div className="flex items-center justify-start gap-1 cursor-pointer text-white">
-                                <FaBars />
-                                <Link href={'/product/64dd173b0e366d6edaece779/new?page=1'} className="text-sm">دسته بندی کتاب ها</Link>
-                            </div>
-                            <div className="divider lg:divider-horizontal" style={{ marginInline: '.5rem' }}></div>
-                            <ul className="flex items-center gap-4 text-xs text-white">
-                                <li><Link href={'/about'} >درباره ما</Link></li>
-                                <li><Link href={'/contact'} >ارتباط با ما</Link></li>
-                                <div className="divider lg:divider-horizontal" style={{ marginInline: '.5rem' }}></div>
-                                <li><Link href={'/'} >سوالی دارید؟</Link></li>
-                            </ul>
-                        </motion.div>
-                    }
-
-                </AnimatePresence>
-            </nav>
+            </div>
         </header>
     )
 }
 
 export default Header;
+
+
+

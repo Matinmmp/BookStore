@@ -11,7 +11,7 @@ interface IProps {
 
 const MainLayout = ({ children }: IProps) => {
     return (
-        <div className="relative">
+        <div className="relative " >
             <Header />
             <main style={{paddingBlock:'0 5rem'}}>
                 {children}
