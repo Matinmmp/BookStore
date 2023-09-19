@@ -14,14 +14,14 @@ interface IProps {
 
 const CategorisSlider = ({ categories }: IProps) => {
     const [sliderRef] = useKeenSlider<HTMLDivElement>({
-        loop: true,
+        loop: false,
         mode: "snap",
         rtl: true,
         slides: { perView: "auto", spacing: 15 },
     })
 
     return (
-        <section className='w-full px-4 pt-4 mt-[2rem] mb-[10rem]'>
+        <section className='w-full px-4 pt-4 mt-[2rem] mb-[2rem]'>
             <div className='text-4xl font-semibold'>دسته بندی ها </div>
             <div ref={sliderRef} className="keen-slider h-[20rem] py-4 mt-8">
                 {categories.map((category) =>
