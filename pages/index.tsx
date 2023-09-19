@@ -30,7 +30,7 @@ export default function HomePage({ productsForHero, fantsyProduct, horrorProduct
 
            <main className="w-full px-4 sm:px-8 lg:px-4 2xl:px-32 mt-44">
             <Products products={fantsyProduct} title={'جدیدترین کتاب ها '}/>
-           {/* <ProductsSlider products={fantsyProduct} title={'فانتزی'}/> */}
+           <ProductsSlider products={fantsyProduct} title={'فانتزی'}/>
             {/* <ProductsSlider products={horrorProduct} title={'ترسناک'}/>
             <ProductsSlider products={horrorProduct} title={'ترسناک'}/> */}
            </main>

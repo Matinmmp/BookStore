@@ -58,23 +58,9 @@ const ProductsSlider = ({ products, title }: IProps) => {
     }, [])
 
     return (
-        <section className='w-full px-4 pt-4 mt-[4rem]'>
-            <Link href={`/product/${products[0].category}/new?page=1`}
-                className='text-3xl hover:text-primary transition-all '>{title}</Link>
-            {/* <div className='mt-3 h-[30rem] px-4 flex gap-4 overflow-x-auto ' >
-                <Swiper
-                    slidesPerView={slidesPerView}
-                    spaceBetween={10}
-                    freeMode={true}
-                    modules={[Pagination]}
-                    className=" w-full h-[30rem] px-4">
-                    {products.map((product) =>
-                        <SwiperSlide key={product._id} className='pt-4'>
-                            <ProductItem product={product} />
-                        </SwiperSlide>
-                    )}
-                </Swiper>
-            </div> */}
+        <section className='w-full px-4 pt-4 mt-[2rem]'>
+            {/* <Link href={`/product/${products[0].category}/new?page=1`}
+                className='text-3xl hover:text-primary transition-all '>{title}</Link> */}
 
             <div ref={sliderRef} className="keen-slider h-[30rem] py-4">
                 {products.map((product) =>
