@@ -23,7 +23,6 @@ const Header = () => {
     const [cartList, setCartList] = useState<Cart[]>([]);
     const router = useRouter();
     const dispatch = useDispatch()
-    console.log(list)
     const handleLocalStorageForShopingCart = () => {
         if (typeof window !== 'undefined') {
             if (localStorage.getItem('ShopingCart')) {

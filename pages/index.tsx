@@ -1,12 +1,12 @@
 import Head from 'next/head';
-import Hero from '../components/Home/Hero';
-
-import { Product } from '@/models/Types';
+import { Category, Product } from '@/models/Types';
 import { getAllProducts, getProductByCategoryId } from '@/services/api/product';
 import ProductsSlider from '@/components/Home/ProductsSlider';
 import Banner from '@/components/Home/Banner';
-import Products from '@/components/Home/Products';
-import NotFound from './404';
+import Comments from '@/components/Home/comments';
+import CategorisSlider from '@/components/Home/CategorisSlider';
+import { getAllCategories } from '@/services/api/category';
+ 
 
 
 interface IProps {
@@ -14,9 +14,10 @@ interface IProps {
     fantsyProduct: Product[]
     horrorProduct: Product[]
     allProducts:Product[]
+    categories:Category[]
 }
 
-export default function HomePage({ fantsyProduct,allProducts }: IProps) {
+export default function HomePage({ fantsyProduct,allProducts ,categories}: IProps) {
 
     if(allProducts === undefined){
         return <div>loading</div>
@@ -37,7 +38,8 @@ export default function HomePage({ fantsyProduct,allProducts }: IProps) {
            <main className="w-full px-4 sm:px-8 lg:px-4 2xl:px-32 mt-44">
             <ProductsSlider products={allProducts} title={'جدیدترین کتاب ها '}/>
             <ProductsSlider products={fantsyProduct} title={'فانتزی'}/>
-
+            <Comments/>
+            <CategorisSlider categories={categories}/>
            </main>
 
         </>
@@ -49,15 +51,16 @@ export const getStaticProps = async () => {
 
     const fantsyProduct = await getProductByCategoryId('64dd173b0e366d6edaece779', 20,1);
     const horrorProduct = await getProductByCategoryId('64defdace7d0b3b42651f804', 20,1);
-    const allProducts = (await getAllProducts(10))
-
+    const allProducts = await getAllProducts(10)
+    const categories = await getAllCategories();
     return {
         props: {
             allProducts:allProducts,
             fantsyProduct:fantsyProduct.products.reverse(),
+            categories:categories,
             NotFound:true
         },
-        revalidate:1800,
+        revalidate:18,
         
     }
 }
