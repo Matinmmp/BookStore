@@ -12,7 +12,7 @@ const Banner = () => {
                     <h1 className="text-3xl md:text-5xl md:leading-[4rem] lg:text-5xl lg:leading-[5rem] font-black">دنبال جایی هستی که هر کتابی داسته باشه ؟</h1>
                     <p className="text-[1.3rem] text-gray-500">می بوک مخصوص شما کتاب باز ها هست تا هر کتابی در هر ژانری که دوست دارید را با بهترین قیمت تهیه کنید .</p>
                     <div className='w-full flex'>
-                        <button className="btn btn-primary btn-lg flex items-center gap-2 mx-auto">
+                        <button className="btn btn-primary btn-lg flex items-center gap-2 mx-auto lg:mx-0">
                             نگاهی به کتاب ها
                             <PiBooks className="text-3xl" />
                         </button>

@@ -3,8 +3,8 @@ import privateAxios from "../instance/privateAxios";
 import publicAxios from "../instance/publiceAxios"
 
 
-export const getAllProducts = async (): Promise<Product[]> => {
-    const response = await publicAxios.get(`/products?limit=30`);
+export const getAllProducts = async (limit:number): Promise<Product[]> => {
+    const response = await publicAxios.get(`/products?limit=${limit}&sort=-createdAt`);
     return await response.data.data.products;
 }
 

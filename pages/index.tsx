@@ -6,15 +6,21 @@ import { getAllProducts, getProductByCategoryId } from '@/services/api/product';
 import ProductsSlider from '@/components/Home/ProductsSlider';
 import Banner from '@/components/Home/Banner';
 import Products from '@/components/Home/Products';
+import NotFound from './404';
 
 
 interface IProps {
     productsForHero: Product[]
     fantsyProduct: Product[]
     horrorProduct: Product[]
+    allProducts:Product[]
 }
 
-export default function HomePage({ productsForHero, fantsyProduct, horrorProduct }: IProps) {
+export default function HomePage({ fantsyProduct,allProducts }: IProps) {
+
+    if(allProducts === undefined){
+        return <div>loading</div>
+    }
     return (
         <>
             <Head>
@@ -29,10 +35,9 @@ export default function HomePage({ productsForHero, fantsyProduct, horrorProduct
             </div>
 
            <main className="w-full px-4 sm:px-8 lg:px-4 2xl:px-32 mt-44">
-            <Products products={fantsyProduct} title={'جدیدترین کتاب ها '}/>
-           <ProductsSlider products={fantsyProduct} title={'فانتزی'}/>
-            {/* <ProductsSlider products={horrorProduct} title={'ترسناک'}/>
-            <ProductsSlider products={horrorProduct} title={'ترسناک'}/> */}
+            <ProductsSlider products={allProducts} title={'جدیدترین کتاب ها '}/>
+            <ProductsSlider products={fantsyProduct} title={'فانتزی'}/>
+
            </main>
 
         </>
@@ -41,18 +46,18 @@ export default function HomePage({ productsForHero, fantsyProduct, horrorProduct
 
 
 export const getStaticProps = async () => {
-    let productsForHero = await getAllProducts();
-    productsForHero = await productsForHero.reverse().slice(0, 7);
 
     const fantsyProduct = await getProductByCategoryId('64dd173b0e366d6edaece779', 20,1);
     const horrorProduct = await getProductByCategoryId('64defdace7d0b3b42651f804', 20,1);
+    const allProducts = (await getAllProducts(10))
 
     return {
         props: {
-            productsForHero,
+            allProducts:allProducts,
             fantsyProduct:fantsyProduct.products.reverse(),
-            horrorProduct:horrorProduct.products.reverse()
+            NotFound:true
         },
         revalidate:1800,
+        
     }
 }
