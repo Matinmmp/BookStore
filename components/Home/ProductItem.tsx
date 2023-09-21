@@ -34,7 +34,7 @@ const ProductItem = ({ product }: IProps) => {
                         <span className='text-primary-focus'>{separate(product.price)}</span>
                         <span >تومان</span>
                     </div>
-                    <Link className="text-sm hover:text-primary transition-all" href={'/'}>بیشتر</Link>
+                    <Link className="text-sm hover:text-primary transition-all" href={`/product/${product._id}`}>بیشتر</Link>
                 </div>
 
             </div>

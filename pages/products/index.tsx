@@ -1,16 +1,15 @@
-import { Product } from '@/models/Types'
 import { getLastProductByCategoryId, getLastProductBySubCategoryId, getProductByCategoryId, getProductBySubCategoryId } from '@/services/api/product'
-import Image from 'next/image'
-import React from 'react'
-import { BsBasket } from 'react-icons/bs';
-import { separate } from '../../utils/seperator';
-import { TiTick } from 'react-icons/ti';
-import Filter from '@/components/Products/Filter';
-import { getAllCategories } from '@/services/api/category';
 import ProductsList from '@/components/Products/ProductsList';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { getAllCategories } from '@/services/api/category';
+import Filter from '@/components/Products/Filter';
+import { separate } from '../../utils/seperator';
 import { useQuery } from '@tanstack/react-query';
+import { BsBasket } from 'react-icons/bs';
+import { Product } from '@/models/Types';
+import { TiTick } from 'react-icons/ti';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
+import React from 'react';
 
 interface IProps {
     products: Product[],
@@ -18,23 +17,23 @@ interface IProps {
     totalPages: number,
 }
 
-const ProductById = ({ products, page, totalPages }: IProps) => {
+const Products = ({ products, page, totalPages }: IProps) => {
 
-    const route = useRouter();
-    let { data: categories, isLoading } = useQuery({ queryKey: ['categories'], queryFn: () => getAllCategories() });
+    // const route = useRouter();
+    // let { data: categories, isLoading } = useQuery({ queryKey: ['categories'], queryFn: () => getAllCategories() });
 
-    const handleChangePage = (number: Number) => {
-        if (route.query.slug?.length === 2)
-            route.replace(`${route.query.slug[0]}/${route.query.slug[1]}?page=${number}`)
+    // const handleChangePage = (number: Number) => {
+    //     if (route.query.slug?.length === 2)
+    //         route.replace(`${route.query.slug[0]}/${route.query.slug[1]}?page=${number}`)
 
-        if (route.query.slug?.length === 3)
-            route.replace(`${route.query.slug[0]}/${route.query.slug[1]}/${route.query.slug[2]}?page=${number}`)
-    }
+    //     if (route.query.slug?.length === 3)
+    //         route.replace(`${route.query.slug[0]}/${route.query.slug[1]}/${route.query.slug[2]}?page=${number}`)
+    // }
 
 
     return (
         <main className='mt-[8rem] lg:mt-[10rem] mx-auto px-8 lg:px-12 xl:px-16 flex justify-center md:justify-normal '>
-            <Filter />
+            {/* <Filter />
             <div className="flex flex-col gap-4">
                 <div className=" mx-4">
                     <div className="dropdown dropdown-end  md:hidden">
@@ -60,40 +59,41 @@ const ProductById = ({ products, page, totalPages }: IProps) => {
 
                     )}
                 </div>
-            </div>
+            </div> */}
         </main>
     )
 }
 
-export default ProductById
+export default Products
 
 
 export const getServerSideProps = async (context: any) => {
+    console.log("context");
+
     let productsData: any
 
     const page = context.query.page;
 
-    console.log(page);
 
 
 
-    if (context.params.slug.length === 2) {
-        const [id, sort] = context.params.slug;
-        if (sort === 'new') productsData = await getLastProductByCategoryId(id, 12, page);
-        else productsData = await getProductByCategoryId(id, 12, page);
-    }
+    // if (context.params.slug.length === 2) {
+    //     const [id, sort] = context.params.slug;
+    //     if (sort === 'new') productsData = await getLastProductByCategoryId(id, 12, page);
+    //     else productsData = await getProductByCategoryId(id, 12, page);
+    // }
 
-    if (context.params.slug.length === 3) {
-        const [categoryId, SubcategorID, sort] = context.params.slug;
-        if (sort === 'new') productsData = await getLastProductBySubCategoryId(SubcategorID, 12, page);
-        else productsData = await getProductBySubCategoryId(SubcategorID, 12, page);
-    }
+    // if (context.params.slug.length === 3) {
+    //     const [categoryId, SubcategorID, sort] = context.params.slug;
+    //     if (sort === 'new') productsData = await getLastProductBySubCategoryId(SubcategorID, 12, page);
+    //     else productsData = await getProductBySubCategoryId(SubcategorID, 12, page);
+    // }
 
     return {
         props: {
-            products: productsData.products,
-            page: productsData.page,
-            totalPages: productsData.totalPages,
+            // products: productsData.products,
+            // page: productsData.page,
+            // totalPages: productsData.totalPages,
         }
     }
 }

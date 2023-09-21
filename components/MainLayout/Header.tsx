@@ -113,7 +113,7 @@ const Header = () => {
             <div className='hidden lg:flex bg-gray-300 p-5 mx-14 rounded-b-3xl'>
                 <div className="flex items-center gap-10 mx-auto">
                     <Link href={'/'} className="hover:text-primary transition-all">خانه</Link>
-                    <Link href={'/'} className="hover:text-primary transition-all flex items-center gap-1">
+                    <Link href={'/product/'} className="hover:text-primary transition-all flex items-center gap-1">
                         دسته بندی ها
                         <IoIosArrowDown className="text-lg" />
                     </Link>
