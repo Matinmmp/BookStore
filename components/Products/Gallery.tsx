@@ -68,12 +68,12 @@ const Gallery = ({ images }: IProps) => {
 
     return (
         <>
-        <div ref={sliderRef} className="keen-slider flex" style={{display:'flex'}}>
+        <div ref={sliderRef} className="keen-slider flex rounded-lg " style={{display:'flex'}}>
         {images.map(image=> {
                 return (
                 <div className="keen-slider__slide h-[25rem]" >
-                    <Image alt="image" 
-                     src={`http://localhost:8000/images/products/images/${image}`} className="w-full object-cover" layout='fill'/>
+                    <Image alt="image" quality={100}
+                     src={`http://localhost:8000/images/products/images/${image}`} className="w-full object-cover " layout='fill'/>
                 </div>)
             })}
         </div>
@@ -81,8 +81,8 @@ const Gallery = ({ images }: IProps) => {
         <div ref={thumbnailRef} className="keen-slider thumbnail">
         {images.map(image=> {
                 return (
-                    <div className="keen-slider__slide h-[6rem]" >
-                    <Image alt="image" 
+                    <div className="keen-slider__slide h-[6rem] rounded-lg cursor-pointer" >
+                    <Image alt="image" quality={100}
                      src={`http://localhost:8000/images/products/images/${image}`} className="w-full object-cover" layout='fill'/>
                 </div>)
             })}

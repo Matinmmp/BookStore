@@ -13,6 +13,7 @@ import { toast } from 'react-toastify';
 import Image from 'next/image';
 import Link from 'next/link';
 import Head from 'next/head';
+import { useRef } from 'react';
 import Gallery from '@/components/Products/Gallery';
 
 
@@ -20,15 +21,18 @@ interface IProps {
     product: Product
 }
 
-let convert_english_numbers_to_persisn = (s: any) => s.replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d])
+let convert_english_numbers_to_persisn = (s: any) => s.replace(/\d/g, (d: number) => '۰۱۲۳۴۵۶۷۸۹'[d])
 
 const ProductById = ({ product }: IProps) => {
+    const descriptionRef = useRef(null);
+    const warrantyRef = useRef(null);
+    const galleryRef = useRef(null);
+
 
     const cartList = useSelector((state: RootState) => state.shopingCart.cartList)
-    console.log(cartList);
-
     const dispatch = useDispatch()
     const isInShopingCart = cartList.find(item => item.productId === product._id);
+
     const handleAddToShopingCart = () => {
         dispatch(addToCart(({ productId: product._id, count: 1, price: product.price, image: product.images[0], name: product.name })));
         toast.success(`${product.name} به سبد خرید اضافه شد.`, {
@@ -48,6 +52,11 @@ const ProductById = ({ product }: IProps) => {
         });
     }
 
+
+    const handleSectionsClick = (element: any) => {
+        window.scrollTo({ top: element.current.offsetTop - 30, behavior: 'smooth' });
+    };
+
     return (
         <main className=''>
             <Head>
@@ -59,7 +68,7 @@ const ProductById = ({ product }: IProps) => {
             <section className="w-full px-4 sm:px-8 lg:px-4 2xl:px-32 pt-8">
                 <div className=' rounded-lg bg-white shadow-md shadow-gray-300'>
 
-                    <div className='flex flex-col lg:flex-row gap-6 p-8'>
+                    <div className='flex flex-col lg:flex-row gap-10 p-8'>
 
                         <div className="w-full lg:w-7/12 order-2 lg:order-1">
                             <div className='flex flex-col justify-between gap-4 h-full'>
@@ -113,53 +122,70 @@ const ProductById = ({ product }: IProps) => {
                 </div>
                 <div className="flex flex-wrap lg:flex-nowrap gap-4 mt-8">
                     <div className="w-full lg:w-9/12 ">
-                        <div className=" rounded-lg bg-white shadow-md shadow-gray-300 p-4">
+                        <section className=" rounded-lg bg-white shadow-md shadow-gray-300 p-4">
                             <ul className='flex gap-8'>
-                                <li className="hover:text-primary transition-all cursor-pointer">خلاصه ی کتاب</li>
-                                <li className="hover:text-primary transition-all cursor-pointer">گالری</li>
-                                <li className="hover:text-primary transition-all cursor-pointer">گارانتی بازگشت وجه</li>
+                                <li className="hover:text-primary transition-all cursor-pointer"
+                                    onClick={() => handleSectionsClick(descriptionRef)}>خلاصه ی کتاب</li>
+                                <li className="hover:text-primary transition-all cursor-pointer"
+                                    onClick={() => handleSectionsClick(galleryRef)}>گالری</li>
+                                <li className="hover:text-primary transition-all cursor-pointer"
+                                    onClick={() => handleSectionsClick(warrantyRef)}>گارانتی بازگشت وجه</li>
                             </ul>
-                        </div>  
+                        </section>
 
-                        <div className=" rounded-lg bg-white shadow-md shadow-gray-300 p-10 mt-8">
+                        <section ref={descriptionRef} className=" rounded-lg bg-white shadow-md shadow-gray-300 p-10 mt-8">
                             <div className='flex flex-col gap-8'>
                                 <h2 className="text-2xl font-semibold text-primary">خلاصه ی کتاب</h2>
                                 <p className="text-md leading-10 text-gray-500 font-thin text-justify">{product.description}</p>
                             </div>
-                        </div>  
+                        </section>
 
-
-                        <div className="rounded-lg bg-white shadow-md shadow-gray-300 p-10 mt-8">
+                        <section ref={galleryRef} className="rounded-lg bg-white shadow-md shadow-gray-300 p-10 mt-8">
                             <div className="flex flex-col gap-5">
-                            <h2 className="text-2xl font-semibold text-primary mb-8">خلاصه ی کتاب</h2>
-
-                                <Gallery images={product.images}/>
+                                <h2 className="text-2xl font-semibold text-primary mb-8">گالری</h2>
+                                <Gallery images={product.images} />
                             </div>
-                        </div>  
+                        </section>
 
-
-                        <div className=" rounded-lg bg-white shadow-md shadow-gray-300 p-10 mt-8">
+                        <section ref={warrantyRef} className=" rounded-lg bg-white shadow-md shadow-gray-300 p-10 mt-8">
                             <div className='flex flex-col gap-8'>
                                 <h2 className="text-2xl font-semibold text-primary">گارانتی بازگشت وجه</h2>
-                                <div className="flex flex-col md:flex-row items-center gap-4">
-                                        <div className="w-4/12">
-                                            <img src="/Images/QA engineers-pana.svg" />
-                                        </div>
-                                        <div className="w-8/12">
-                                            <p className=" text-md leading-10 text-gray-500 font-thin text-justify">
-                                              می بوک ضمانت میکند که تمام محصوالات با بالاترین کیفیت و بهترین قیمت به دست مشتری 
-                                              میرسد و در صورتی که محصول دارای هرگونه مشکل از جمه چاپ نشدن بخشی از کتاب یا پارگی بخشی از کتاب 
-                                                باشد محصول را پس میگیرد و تعویض میکند.
-                                            </p>
-                                        </div>
+                                <div className="flex flex-col md:flex-row  gap-4">
+                                    <div className="w-4/12">
+                                        <img src="/Images/QA engineers-pana.svg" />
+                                    </div>
+                                    <div className="w-8/12">
+                                        <p className=" text-md leading-10 text-gray-500 font-thin text-justify">
+                                            می بوک ضمانت میکند که تمام محصوالات با بالاترین کیفیت و بهترین قیمت به دست مشتری
+                                            میرسد و در صورتی که محصول دارای هرگونه مشکل از جمه چاپ نشدن بخشی از کتاب یا پارگی بخشی از کتاب
+                                            باشد محصول را پس میگیرد و تعویض میکند.
+                                        </p>
+                                    </div>
                                 </div>
-                                
+
                             </div>
-                        </div>  
+                        </section>
 
                     </div>
 
-                    <div className="w-full lg:w-3/12 ">s</div>
+                    <div className="w-full lg:w-3/12 ">
+
+                        <section className="rounded-lg bg-white shadow-md shadow-gray-300 p-4">
+                            <div className="flex items-center gap-2">                              
+                                <div className="rating rating-md" dir="ltr">                                   
+                                    <input type="radio" name="rating-5" className="mask mask-star-2 bg-orange-400"  checked/>
+                                    <input type="radio" name="rating-5" className="mask mask-star-2 bg-orange-400" />
+                                    <input type="radio" name="rating-5" className="mask mask-star-2 bg-orange-400" />
+                                    <input type="radio" name="rating-5" className="mask mask-star-2 bg-orange-400" />
+                                    <input type="radio" name="rating-5" className="mask mask-star-2 bg-orange-400"  />
+                                </div>
+                                <span>
+                                    {`(${convert_english_numbers_to_persisn("4")}/${convert_english_numbers_to_persisn("5")})`}
+                                </span>
+                                <span>{`از ${convert_english_numbers_to_persisn("57")} رای` }</span>
+                            </div>                                               
+                        </section>
+                    </div>
 
                 </div>
             </section>
