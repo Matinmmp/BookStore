@@ -13,11 +13,11 @@ const ProductItem = ({ product }: IProps) => {
 
     return (
         <div className=' bg-white shadow-md shadow-gary-400
-         border-opacity-50 hover:scale-[1.03] transition-all rounded-md keen-slider__slide' style={{minWidth:"15rem"}}>
+         border-opacity-50 hover:scale-[1.03] transition-all rounded-md keen-slider__slide' >
             <div className='w-full h-full p-[6px] flex flex-col gap-3'>
 
                 <Link href={`/product/${product._id}`} className="overflow-hidden rounded-md ">
-                    <Image alt={product.name} width={200} height={500}
+                    <Image alt={product.name} width={500} height={500} priority={true}
                         className='w-full h-[20rem] shadow-lg shadow-gray-700 rounded-md 
                          object-cover transform transition duration-200 hover:scale-110'
                         src={`http://localhost:8000/images/products/images/${product.images[0]}`} />

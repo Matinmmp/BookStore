@@ -1,25 +1,21 @@
+import {BsCalendar2RangeFill,BsPersonCircle,BsBasket, BsTrash,BsFillCalendarDateFill} from 'react-icons/bs';
 import { addToCart, deleteFromCart } from '../../store/shopingCart-slice';
 import { getAllProducts, getProductById } from '@/services/api/product';
-import NumericUpDown from '@/components/Product/NumericUpDown';
+import NumericUpDown from '../../components/Product/NumericUpDown';
 import { useSelector, useDispatch } from 'react-redux';
-import {BsFillCalendarDateFill} from 'react-icons/bs';
 import FlipBook from '@/components/Products/FlipBook';
 import type { RootState } from '../../store/store';
-import { BsBasket, BsTrash } from 'react-icons/bs';
 import Gallery from '@/components/Product/Gallery';
 import { separate } from '../../utils/seperator';
 import "react-toastify/dist/ReactToastify.css";
-import { BsChevronLeft } from 'react-icons/bs';
 import {RiSchoolFill} from 'react-icons/ri';
 import {FaBookOpen} from 'react-icons/fa';
+import {TbLanguage} from 'react-icons/tb';
 import { Product } from '@/models/Types';
 import { toast } from 'react-toastify';
-import Image from 'next/image';
-import Link from 'next/link';
-import Head from 'next/head';
 import { useRef } from 'react';
-import {BsCalendar2RangeFill} from 'react-icons/bs';
-import {TbLanguage} from 'react-icons/tb';
+import Image from 'next/image';
+import Head from 'next/head';
 
 
 
@@ -74,6 +70,7 @@ const ProductById = ({ product }: IProps) => {
                 <link rel="icon" href="/Images/logo2.png" />
             </Head>
             <section className="w-full px-4 sm:px-8 lg:px-4 2xl:px-32 pt-8">
+
                 <div className=' rounded-lg bg-white shadow-md shadow-gray-300'>
 
                     <div className='flex flex-col lg:flex-row gap-10 p-2 md:p-6 lg:p-8'>
@@ -85,7 +82,6 @@ const ProductById = ({ product }: IProps) => {
                                     <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold">{product.name}</h1>
                                     {product.quantity < 10 && product.quantity > 0 && <span className="text-sm sm:text-xl md:text-2xl whitespace-nowrap text-yellow-300">{"(تعداد محدود)"}</span>}
                                     {product.quantity === 0 && <span className="text-sm sm:text-xl md:text-2xl whitespace-nowrap text-error">{"(موجود نمی باشد)"}</span>}
-
                                 </div>
 
                                 <div>
@@ -124,7 +120,7 @@ const ProductById = ({ product }: IProps) => {
 
                         <div className='w-full lg:w-5/12 order-1 lg:order-2 overflow-hidden rounded-md '>
                             <Image alt={product.name} width={800} height={800}
-                                className='w-full h-[20rem] shadow-lg shadow-gray-700 rounded-md 
+                                className='w-full h-[20rem] rounded-md 
                                 object-cover transform transition duration-200 hover:scale-110'
                                 src={`http://localhost:8000/images/products/thumbnails/${product.thumbnail}`} />
                         </div>
@@ -180,7 +176,6 @@ const ProductById = ({ product }: IProps) => {
                         </section>
 
                     </div>
-
                     <div className="w-full lg:w-3/12 order-1 lg:order-2">
 
                         <section className="rounded-lg bg-white shadow-md shadow-gray-300 p-4">
@@ -232,7 +227,17 @@ const ProductById = ({ product }: IProps) => {
                                     </div>
                                 </div>                                                                                         
                         </section>
+
+                        <section className="rounded-lg bg-white shadow-md shadow-gray-300 p-4 mt-8">
+                            <div className="flex flex-col items-center gap-2">                              
+                               <BsPersonCircle className="text-5xl text-primary"/>
+                               <span className="text-xl font-semibold">{description.writer}</span>
+                               <span className="text-sm text-gray-400">نویسنده</span>
+                               <p className="text-sm text-gray-400 leading-7">{description.aboutWriter}</p>
+                            </div>                                               
+                        </section>
                     </div>
+
                 </div>
             </section>
         </main>

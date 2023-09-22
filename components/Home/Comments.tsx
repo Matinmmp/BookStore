@@ -46,7 +46,7 @@ const Comments = () => {
                     <div ref={ref} className="keen-slider shadow-md shadow-gray-400 rounded-2xl overflow-hidden w-full overflow-y-auto">
                         {comments.map((item: any,index:number) => {
                             return (
-                                <div className="keen-slider__slide bg-white h-[20rem] w-full  p-8 flex flex-col gap-4" key={index}>
+                                <div className="keen-slider__slide bg-white h-[20rem] w-full  p-8 flex flex-col justify-between gap-4" key={index}>
                                    <p className="leading-[2.3rem] text-sm lg:text-[1.2rem] text-gray-500 text-justify">{item.comment}</p>
                                    <div className="w-full">
                                    <div className="avatar flex gap-2 justify-center">

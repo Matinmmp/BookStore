@@ -10,7 +10,7 @@ interface IProps {
 const ProductsList = ({ products }: IProps) => {
 
     return (
-        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 items-center gap-4 w-full' >
+        <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 3xl:grid-cols-4 gap-1 lg:gap-2 xl:gap-6 w-full' >
             {products.map((product) => <ProductItem key={product._id} product={product} />)}
         </div>
     )

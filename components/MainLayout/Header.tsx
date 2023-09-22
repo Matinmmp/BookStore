@@ -71,7 +71,7 @@ const Header = () => {
                     <div>
                         <Link href={'/'} className='flex items-center '>
                             <h3 className='hidden lg:block text-3xl pt-2 text-info'>MeBook</h3>
-                            <Image alt="logo" src={'/Images/logo2.png'} width={200} height={200} className='w-16 h-10' />
+                            <Image alt="logo" src={'/Images/logo2.png'} width={200} height={200} priority={true} className='w-16 h-10' />
                         </Link>
                     </div>
 
@@ -113,7 +113,7 @@ const Header = () => {
             <div className='hidden lg:flex bg-gray-300 p-5 mx-14 rounded-b-3xl'>
                 <div className="flex items-center gap-10 mx-auto">
                     <Link href={'/'} className="hover:text-primary transition-all">خانه</Link>
-                    <Link href={'/product/'} className="hover:text-primary transition-all flex items-center gap-1">
+                    <Link href={'/products'} className="hover:text-primary transition-all flex items-center gap-1">
                         دسته بندی ها
                         <IoIosArrowDown className="text-lg" />
                     </Link>

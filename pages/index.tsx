@@ -3,7 +3,7 @@ import { Category, Product } from '@/models/Types';
 import { getAllProducts, getProductByCategoryId } from '@/services/api/product';
 import ProductsSlider from '@/components/Home/ProductsSlider';
 import Banner from '@/components/Home/Banner';
-import Comments from '@/components/Home/comments';
+import Comments from '../components/Home/Comments';
 import CategorisSlider from '@/components/Home/CategorisSlider';
 import { getAllCategories } from '@/services/api/category';
  
