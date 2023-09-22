@@ -2,6 +2,7 @@ import { addToCart, deleteFromCart } from '../../store/shopingCart-slice';
 import { getAllProducts, getProductById } from '@/services/api/product';
 import NumericUpDown from '@/components/Product/NumericUpDown';
 import { useSelector, useDispatch } from 'react-redux';
+import {BsFillCalendarDateFill} from 'react-icons/bs';
 import FlipBook from '@/components/Products/FlipBook';
 import type { RootState } from '../../store/store';
 import { BsBasket, BsTrash } from 'react-icons/bs';
@@ -9,27 +10,32 @@ import Gallery from '@/components/Product/Gallery';
 import { separate } from '../../utils/seperator';
 import "react-toastify/dist/ReactToastify.css";
 import { BsChevronLeft } from 'react-icons/bs';
-import {BiBookOpen} from 'react-icons/bi';
+import {RiSchoolFill} from 'react-icons/ri';
+import {FaBookOpen} from 'react-icons/fa';
 import { Product } from '@/models/Types';
 import { toast } from 'react-toastify';
 import Image from 'next/image';
 import Link from 'next/link';
 import Head from 'next/head';
 import { useRef } from 'react';
+import {BsCalendar2RangeFill} from 'react-icons/bs';
+import {TbLanguage} from 'react-icons/tb';
+
 
 
 interface IProps {
     product: Product
 }
 
-let convert_english_numbers_to_persisn = (s: any) => s.replace(/\d/g, (d: number) => '۰۱۲۳۴۵۶۷۸۹'[d])
+const convert_english_numbers_to_persisn = (s: any) => s.replace(/\d/g, (d: number) => '۰۱۲۳۴۵۶۷۸۹'[d])
 
 const ProductById = ({ product }: IProps) => {
     const descriptionRef = useRef(null);
     const warrantyRef = useRef(null);
     const galleryRef = useRef(null);
-
+    
     const description = JSON.parse(product.description);
+    let date = new Date(description.releaseData);
 
     const cartList = useSelector((state: RootState) => state.shopingCart.cartList)
     const dispatch = useDispatch()
@@ -70,14 +76,16 @@ const ProductById = ({ product }: IProps) => {
             <section className="w-full px-4 sm:px-8 lg:px-4 2xl:px-32 pt-8">
                 <div className=' rounded-lg bg-white shadow-md shadow-gray-300'>
 
-                    <div className='flex flex-col lg:flex-row gap-10 p-8'>
+                    <div className='flex flex-col lg:flex-row gap-10 p-2 md:p-6 lg:p-8'>
 
                         <div className="w-full lg:w-7/12 order-2 lg:order-1">
                             <div className='flex flex-col justify-between gap-4 h-full'>
 
                                 <div className="flex items-center gap-2">
-                                    <h1 className="text-lg sm:text-2xl md:text-3xl lg:text-4xl font-semibold">{product.name}</h1>
-                                    {product.quantity < 10 && <span className="text-sm sm:text-xl md:text-2xl  whitespace-nowrap text-error">{"(تعداد محدود)"}</span>}
+                                    <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold">{product.name}</h1>
+                                    {product.quantity < 10 && product.quantity > 0 && <span className="text-sm sm:text-xl md:text-2xl whitespace-nowrap text-yellow-300">{"(تعداد محدود)"}</span>}
+                                    {product.quantity === 0 && <span className="text-sm sm:text-xl md:text-2xl whitespace-nowrap text-error">{"(موجود نمی باشد)"}</span>}
+
                                 </div>
 
                                 <div>
@@ -125,29 +133,30 @@ const ProductById = ({ product }: IProps) => {
 
                 </div>
                 <div className="flex flex-wrap lg:flex-nowrap gap-4 mt-8">
-                    <div className="w-full lg:w-9/12 ">
+                    <div className="w-full lg:w-9/12 order-2 lg:order-1">
                         <section className=" rounded-lg bg-white shadow-md shadow-gray-300 p-4">
                             <ul className='flex gap-8'>
-                                <li className="hover:text-primary transition-all cursor-pointer"
+                                <li className="text-sm md:text-md hover:text-primary transition-all cursor-pointer"
                                     onClick={() => handleSectionsClick(descriptionRef)}>خلاصه ی کتاب</li>
-                                <li className="hover:text-primary transition-all cursor-pointer"
+                                <li className="text-sm md:text-md hover:text-primary transition-all cursor-pointer"
                                     onClick={() => handleSectionsClick(galleryRef)}>گالری</li>
-                                <li className="hover:text-primary transition-all cursor-pointer"
+                                <li className="text-sm md:text-md hover:text-primary transition-all cursor-pointer"
                                     onClick={() => handleSectionsClick(warrantyRef)}>گارانتی بازگشت وجه</li>
                             </ul>
                         </section>
 
-                        <section ref={descriptionRef} className=" rounded-lg bg-white shadow-md shadow-gray-300 p-10 mt-8">
+                        <section ref={descriptionRef} className=" rounded-lg bg-white shadow-md shadow-gray-300 p-4 md:p-6 lg:p-10 mt-8">
                             <div className='flex flex-col gap-8'>
                                 <h2 className="text-2xl font-semibold text-primary">خلاصه ی کتاب</h2>
-                                <p className="text-md leading-10 text-gray-500 font-thin text-justify">{description.longSummery}</p>
+                                <div className="text-md leading-10 text-gray-500" dangerouslySetInnerHTML={{ __html: description.longSummery }} />
+                                {/* <p className="text-md leading-10 text-gray-500 font-thin text-justify">{description.longSummery}</p> */}
                             </div>
                         </section>
 
-                        <section ref={galleryRef} className="rounded-lg bg-white shadow-md shadow-gray-300 p-10 mt-8">
+                        <section ref={galleryRef} className="rounded-lg bg-white shadow-md shadow-gray-300 p-4 md:p-6 lg:p-10 mt-8 mt-8">
                             <div className="flex flex-col gap-5">
                                 <h2 className="text-2xl font-semibold text-primary mb-8">گالری</h2>
-                                <Gallery images={product.images} />
+                                <Gallery images={product.images.slice(1,product.images.length)} />
                             </div>
                         </section>
 
@@ -155,10 +164,10 @@ const ProductById = ({ product }: IProps) => {
                             <div className='flex flex-col gap-8'>
                                 <h2 className="text-2xl font-semibold text-primary">گارانتی بازگشت وجه</h2>
                                 <div className="flex flex-col md:flex-row  gap-4">
-                                    <div className="w-4/12">
+                                    <div className="w-full md:w-4/12">
                                         <img src="/Images/QA engineers-pana.svg" />
                                     </div>
-                                    <div className="w-8/12">
+                                    <div className="w-full md:w-8/12">
                                         <p className=" text-md leading-10 text-gray-500 font-thin text-justify">
                                             می بوک ضمانت میکند که تمام محصوالات با بالاترین کیفیت و بهترین قیمت به دست مشتری
                                             میرسد و در صورتی که محصول دارای هرگونه مشکل از جمه چاپ نشدن بخشی از کتاب یا پارگی بخشی از کتاب
@@ -172,12 +181,12 @@ const ProductById = ({ product }: IProps) => {
 
                     </div>
 
-                    <div className="w-full lg:w-3/12 ">
+                    <div className="w-full lg:w-3/12 order-1 lg:order-2">
 
                         <section className="rounded-lg bg-white shadow-md shadow-gray-300 p-4">
                             <div className="flex items-center gap-2">                              
                                 <div className="rating rating-md" dir="ltr">                                   
-                                    <input type="radio" name="rating-5" className="mask mask-star-2 bg-orange-400"  checked/>
+                                    <input type="radio" name="rating-5" className="mask mask-star-2 bg-orange-400"  />
                                     <input type="radio" name="rating-5" className="mask mask-star-2 bg-orange-400" />
                                     <input type="radio" name="rating-5" className="mask mask-star-2 bg-orange-400" />
                                     <input type="radio" name="rating-5" className="mask mask-star-2 bg-orange-400" />
@@ -191,15 +200,41 @@ const ProductById = ({ product }: IProps) => {
                         </section>
 
                         <section className="mt-8">
-                                    e                                      
+                                <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-3 gap-2"> 
+                                    <div className="rounded-md bg-white shadow-md shadow-gray-300 p-2 flex flex-col items-center gap-2 ">
+                                        <FaBookOpen className="text-primary text-2xl"/>
+                                        <span className='text-xs font-thin text-gray-400'>تعداد صفحه</span>
+                                        <span className="text-xs font-bold">{convert_english_numbers_to_persisn(description.pages)}</span>
+                                    </div>
+                                    <div className="rounded-md bg-white shadow-md shadow-gray-300 p-2 flex flex-col items-center gap-2">
+                                        <RiSchoolFill className="text-primary text-2xl"/>
+                                        <span className='text-xs font-thin text-gray-400'>انتشارات</span>
+                                        <span className="text-xs font-bold">{product.brand}</span>
+                                    </div>
+                                    <div className="rounded-md bg-white shadow-md shadow-gray-300 p-2 flex flex-col items-center gap-2">
+                                        <BsFillCalendarDateFill className="text-primary text-2xl"/>
+                                        <span className='text-xs font-thin text-gray-400'>تاریخ انتشار</span>
+                                        <span className="text-xs font-bold">{date.toLocaleDateString("fa", { year: "numeric", month: "2-digit", day: "2-digit" })}</span>
+                                    </div>
+                                    <div className="rounded-md bg-white shadow-md shadow-gray-300 p-2 flex flex-col items-center gap-2">
+                                        <BsCalendar2RangeFill className="text-primary text-2xl"/>
+                                        <span className='text-xs font-thin text-gray-400'>رنج سنی</span>
+                                        <span className="text-xs font-bold">
+                                            {`${convert_english_numbers_to_persisn(description.minAge)}
+                                             تا 
+                                             ${convert_english_numbers_to_persisn(description.maxAge)}`}
+                                            </span>
+                                    </div>
+                                    <div className="rounded-md bg-white shadow-md shadow-gray-300 p-2 flex flex-col items-center gap-2">
+                                        <TbLanguage className="text-primary text-2xl"/>
+                                        <span className='text-xs font-thin text-gray-400'>زبان</span>
+                                        <span className="text-xs font-bold">{description.bookLag}</span>
+                                    </div>
+                                </div>                                                                                         
                         </section>
-
                     </div>
-
                 </div>
             </section>
-
-
         </main>
     )
 }

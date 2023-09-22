@@ -6,6 +6,7 @@ import {
 } from "keen-slider/react"
 import "keen-slider/keen-slider.min.css";
 import Image from 'next/image';
+import index from './../../pages/cart/index';
 
 
 interface IProps {
@@ -69,9 +70,9 @@ const Gallery = ({ images }: IProps) => {
     return (
         <>
         <div ref={sliderRef} className="keen-slider flex rounded-lg " style={{display:'flex'}}>
-        {images.map(image=> {
+        {images.map((image,index)=> {
                 return (
-                <div className="keen-slider__slide h-[25rem]" >
+                <div key={index} className="keen-slider__slide h-[25rem]" >
                     <Image alt="image" quality={100}
                      src={`http://localhost:8000/images/products/images/${image}`} className="w-full object-cover " layout='fill'/>
                 </div>)
@@ -79,9 +80,9 @@ const Gallery = ({ images }: IProps) => {
         </div>
           
         <div ref={thumbnailRef} className="keen-slider thumbnail">
-        {images.map(image=> {
+        {images.map((image,index)=> {
                 return (
-                    <div className="keen-slider__slide h-[6rem] rounded-lg cursor-pointer" >
+                    <div key={index} className="keen-slider__slide h-[6rem] rounded-lg cursor-pointer" >
                     <Image alt="image" quality={100}
                      src={`http://localhost:8000/images/products/images/${image}`} className="w-full object-cover" layout='fill'/>
                 </div>)
