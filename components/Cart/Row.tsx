@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Cart} from "../../models/Types";
 import { getProductById } from "@/services/api/product";
 import { separate } from "@/utils/seperator";
-import NumericUpDown from "../Products/NumericUpDown";
+import NumericUpDown from "../Product/NumericUpDown";
 
 
 interface IProps {

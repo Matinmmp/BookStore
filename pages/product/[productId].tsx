@@ -1,20 +1,21 @@
 import { addToCart, deleteFromCart } from '../../store/shopingCart-slice';
 import { getAllProducts, getProductById } from '@/services/api/product';
-import NumericUpDown from '@/components/Products/NumericUpDown';
+import NumericUpDown from '@/components/Product/NumericUpDown';
 import { useSelector, useDispatch } from 'react-redux';
 import FlipBook from '@/components/Products/FlipBook';
 import type { RootState } from '../../store/store';
 import { BsBasket, BsTrash } from 'react-icons/bs';
+import Gallery from '@/components/Product/Gallery';
 import { separate } from '../../utils/seperator';
 import "react-toastify/dist/ReactToastify.css";
 import { BsChevronLeft } from 'react-icons/bs';
+import {BiBookOpen} from 'react-icons/bi';
 import { Product } from '@/models/Types';
 import { toast } from 'react-toastify';
 import Image from 'next/image';
 import Link from 'next/link';
 import Head from 'next/head';
 import { useRef } from 'react';
-import Gallery from '@/components/Products/Gallery';
 
 
 interface IProps {
@@ -28,6 +29,7 @@ const ProductById = ({ product }: IProps) => {
     const warrantyRef = useRef(null);
     const galleryRef = useRef(null);
 
+    const description = JSON.parse(product.description);
 
     const cartList = useSelector((state: RootState) => state.shopingCart.cartList)
     const dispatch = useDispatch()
@@ -79,7 +81,9 @@ const ProductById = ({ product }: IProps) => {
                                 </div>
 
                                 <div>
-                                    k
+                                    <p className="text-lg leading-10 text-gray-500 font-thin text-justify">
+                                        {description.shortSummery}
+                                    </p>
                                 </div>
 
                                 <div className='flex flex-col md:flex-row justify-between items-center gap-2'>
@@ -136,7 +140,7 @@ const ProductById = ({ product }: IProps) => {
                         <section ref={descriptionRef} className=" rounded-lg bg-white shadow-md shadow-gray-300 p-10 mt-8">
                             <div className='flex flex-col gap-8'>
                                 <h2 className="text-2xl font-semibold text-primary">خلاصه ی کتاب</h2>
-                                <p className="text-md leading-10 text-gray-500 font-thin text-justify">{product.description}</p>
+                                <p className="text-md leading-10 text-gray-500 font-thin text-justify">{description.longSummery}</p>
                             </div>
                         </section>
 
@@ -185,6 +189,11 @@ const ProductById = ({ product }: IProps) => {
                                 <span>{`از ${convert_english_numbers_to_persisn("57")} رای` }</span>
                             </div>                                               
                         </section>
+
+                        <section className="mt-8">
+                                    e                                      
+                        </section>
+
                     </div>
 
                 </div>
