@@ -11,13 +11,13 @@ import {useRef} from 'react';
 
 interface IProps {
     productsForHero: Product[]
-    fantsyProduct: Product[]
-    horrorProduct: Product[]
+    firstProductSlider: Product[]
+    firstProductSliderTitle:'string'
     allProducts:Product[]
     categories:Category[]
 }
 
-export default function HomePage({ fantsyProduct,allProducts ,categories}: IProps) {
+export default function HomePage({ firstProductSlider,allProducts ,categories,firstProductSliderTitle}: IProps) {
 
     if(allProducts === undefined){
         return <div>loading</div>
@@ -36,10 +36,10 @@ export default function HomePage({ fantsyProduct,allProducts ,categories}: IProp
             </div>
 
            <main className="w-full px-4 sm:px-8 lg:px-4 2xl:px-32 mt-44">
-            <ProductsSlider products={allProducts} title={'جدیدترین کتاب ها '}/>
-            <ProductsSlider products={fantsyProduct} title={'فانتزی'}/>
+            {allProducts&&<ProductsSlider products={allProducts} title={'جدیدترین کتاب ها '}/>}
+            {firstProductSlider&&<ProductsSlider products={firstProductSlider} title={firstProductSliderTitle}/>}
             <Comments/>
-            <CategorisSlider categories={categories}/>
+            {categories&&<CategorisSlider categories={categories}/>}
            </main>
 
         </>
@@ -48,19 +48,25 @@ export default function HomePage({ fantsyProduct,allProducts ,categories}: IProp
 
 
 export const getStaticProps = async () => {
-
-    const fantsyProduct = await getProductByCategoryId('64dd173b0e366d6edaece779', 20,1);
-    const horrorProduct = await getProductByCategoryId('64defdace7d0b3b42651f804', 20,1);
-    const allProducts = await getAllProducts(10)
     const categories = await getAllCategories();
+    if(categories.length){
+        const firstProductSlider = await getProductByCategoryId(categories[0]._id, 20,1);
+        const allProducts = await getAllProducts(10)
+        return {
+            props: {
+                allProducts:allProducts,
+                firstProductSlider:firstProductSlider.products.reverse(),
+                firstProductSliderTitle:categories[0].name,
+                categories:categories,
+                NotFound:true
+            },
+            revalidate:1800,
+        }
+    }
     return {
         props: {
-            allProducts:allProducts,
-            fantsyProduct:fantsyProduct.products.reverse(),
-            categories:categories,
             NotFound:true
         },
-        revalidate:18,
-        
+        revalidate:1800,
     }
 }

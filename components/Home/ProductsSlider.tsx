@@ -19,10 +19,11 @@ const ProductsSlider = ({ products, title }: IProps) => {
         rtl: true,
         slides: { perView: "auto", spacing: 15 },
     })
-
-    let url = `/product/${products[0].category}/new?page=1`;
+    let url =""
+    if(products[0])
+        url = `/products?category=${products[0].category}`;
     if(title === 'جدیدترین کتاب ها ')
-        url= '/product/new?page=1';
+        url= '/products';
 
     return (
         <section className='w-full px-4 pt-4 mt-[2rem] mb-[10rem]'>

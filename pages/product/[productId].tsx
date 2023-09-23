@@ -35,7 +35,9 @@ const ProductById = ({ product }: IProps) => {
 
     const cartList = useSelector((state: RootState) => state.shopingCart.cartList)
     const dispatch = useDispatch()
-    const isInShopingCart = cartList.find(item => item.productId === product._id);
+    let isInShopingCart:any;
+    if(cartList)
+     isInShopingCart = cartList.find(item => item.productId === product._id);
 
     const handleAddToShopingCart = () => {
         dispatch(addToCart(({ productId: product._id, count: 1, price: product.price, image: product.images[0], name: product.name })));
