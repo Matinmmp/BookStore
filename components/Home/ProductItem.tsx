@@ -13,7 +13,7 @@ const ProductItem = ({ product }: IProps) => {
 
     return (
         <div className=' bg-white shadow-md shadow-gary-400
-         border-opacity-50 hover:scale-[1.03] transition-all rounded-md keen-slider__slide' >
+         border-opacity-50 hover:scale-[1.03] transition-all rounded-md keen-slider__slide' style={{minWidth:"14rem"}}>
             <div className='w-full h-full p-[6px] flex flex-col gap-3'>
 
                 <Link href={`/product/${product._id}`} className="overflow-hidden rounded-md ">

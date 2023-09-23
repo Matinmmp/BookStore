@@ -12,7 +12,7 @@ interface IProps {
 const CategoryItem = ({ category }: IProps) => {
 
     return (
-        <div className=' bg-white shadow-md shadow-gary-400 relative cursor-pointer
+        <Link href={`/products?category=${category._id}`} className=' bg-white shadow-md shadow-gary-400 relative cursor-pointer
          border-opacity-50 hover:scale-[1.03] transition-all rounded-md keen-slider__slide' style={{minWidth:"25rem"}}>
             <img src={`http://localhost:8000/images/categories/icons/${category.icon}`} className='w-full h-full'/>
             <div className='absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-gray-800 bg-opacity-60'>
@@ -20,7 +20,7 @@ const CategoryItem = ({ category }: IProps) => {
                     {category.name}
                 </h5>
             </div>
-        </div>
+        </Link>
     )
 }
 
