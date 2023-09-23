@@ -17,7 +17,7 @@ interface IProps {
 const Hero = ({ products }: IProps) => {
 
     return (
-        <div className="h-[90vh]">
+        <div className="h-[90vh] hidden">
             <Swiper
                 slidesPerView={1}
                 pagination={{ dynamicBullets: true, }}

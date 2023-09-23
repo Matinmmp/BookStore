@@ -45,7 +45,7 @@ const index = () => {
     }
 
     return (
-        <section className='px-4 md:px-[4rem] lg:px-[8rem] pt-[5rem] lg:pt-[10rem]' >
+        <section className='w-full px-4 sm:px-8 lg:px-4 2xl:px-32 pt-8' >
             <div className='flex flex-wrap lg:flex-nowrap gap-4'>
 
                 <div className="w-full lg:w-8/12">
@@ -56,8 +56,8 @@ const index = () => {
                     </div>
                     <Table products={list} />
                 </div>
-                <div className="w-full lg:w-4/12">
-                    <section className="  rounded-lg border-[1px] border-gray-300 flex flex-col gap-8 mt-[5.2rem] p-6">
+                <div className="w-full lg:w-4/12 ">
+                    <section className="  rounded-lg border-[1px] border-gray-300 flex flex-col gap-8 mt-[2.7rem] p-6 bg-white">
                         <div className="flex justify-between w-full">
                             <span className="font-semibold">تعداد محصولات </span>
                             <span className="font-semibold">{list.length} کالا</span>

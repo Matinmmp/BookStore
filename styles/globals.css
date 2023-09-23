@@ -10,8 +10,8 @@
 body {
     position: relative;
     font-family: 'Vazir';
+    background-color: rgb(244,245,247);
 }
-
 
 /* ===== Scrollbar CSS ===== */
 /* Firefox */
@@ -125,3 +125,45 @@ i {
 #p3 {
     z-index: 1;
 }
+
+
+
+.thumbnail .keen-slider__slide.active {
+    border: 2px dashed black;
+  }
+
+
+  .rating {
+    line-height: 1;
+    display: inline-block;
+  }
+  
+
+  .rating__item {
+    display: inline;
+    font-size: 0;
+
+    &::before {
+      font-size: 18px;
+      content: "★";
+      color: lightgray;
+    }
+  }
+
+   
+  .rating__input {
+    position: absolute;
+    visibility: hidden;
+  }
+
+  .rating:hover .rating__item::before {
+    color: hotpink;
+  }
+  
+  .rating__item:hover ~ .rating__item::before {
+    color: lightgray;
+  }
+  
+  .rating__item--selected::before {
+    color: hotpink;
+  }

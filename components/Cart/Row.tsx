@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Cart} from "../../models/Types";
 import { getProductById } from "@/services/api/product";
 import { separate } from "@/utils/seperator";
-import NumericUpDown from "../Products/NumericUpDown";
+import NumericUpDown from "../Product/NumericUpDown";
 
 
 interface IProps {
@@ -12,7 +12,7 @@ const Row = ({ product }: IProps) => {
     let { data, isLoading } = useQuery({ queryKey: [`${product.productId}`], queryFn: () => getProductById(product.productId) },)
 
     return (
-        <tr className=" flex justify-around items-center hover:bg-blue-100 transition-all w-full">
+        <tr className=" flex justify-around items-center bg-white hover:bg-blue-100 transition-all w-full">
             <td className="px-6 py-4 w-4/12">
                 <div className="flex items-center gap-4">
                     <div className="avatar">

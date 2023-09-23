@@ -12,18 +12,19 @@ interface IProps {
 const ProductItem = ({ product }: IProps) => {
 
     return (
-        <div className=' border-[1px] border-primary bg-white 
-         border-opacity-50 hover:scale-[1.03] transition-all rounded-md' >
+        <div className=' bg-white shadow-md shadow-gary-400
+         border-opacity-50 hover:scale-[1.03] transition-all rounded-md keen-slider__slide' style={{minWidth:"14rem"}}>
             <div className='w-full h-full p-[6px] flex flex-col gap-3'>
 
-                <Link href={`/product/${product._id}`} >
-                    <Image alt={product.name} width={200} height={500}
-                        className='w-full h-[20rem] shadow-lg shadow-gray-700 rounded-md '
+                <Link href={`/product/${product._id}`} className="overflow-hidden rounded-md ">
+                    <Image alt={product.name} width={500} height={500} priority={true}
+                        className='w-full h-[20rem] shadow-lg shadow-gray-700 rounded-md 
+                         object-cover transform transition duration-200 hover:scale-110'
                         src={`http://localhost:8000/images/products/images/${product.images[0]}`} />
                 </Link>
 
                 <Link href={`/product/${product._id}`} className="mt-2 ">
-                    <h5 className="text-sm hover:text-primary transition-all">{product.name}</h5>
+                    <h5 className="text-md hover:text-primary transition-all">{product.name}</h5>
                 </Link>
 
                 <div className="divider m-0 mt-2" ></div>
@@ -33,7 +34,7 @@ const ProductItem = ({ product }: IProps) => {
                         <span className='text-primary-focus'>{separate(product.price)}</span>
                         <span >تومان</span>
                     </div>
-                    <BsBasket className="text-2xl text-primary-focus cursor-pointer" />
+                    <Link className="text-sm hover:text-primary transition-all" href={`/product/${product._id}`}>بیشتر</Link>
                 </div>
 
             </div>

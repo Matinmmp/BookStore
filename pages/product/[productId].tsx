@@ -1,31 +1,42 @@
+import {BsCalendar2RangeFill,BsPersonCircle,BsBasket, BsTrash,BsFillCalendarDateFill} from 'react-icons/bs';
 import { addToCart, deleteFromCart } from '../../store/shopingCart-slice';
 import { getAllProducts, getProductById } from '@/services/api/product';
+import NumericUpDown from '../../components/Product/NumericUpDown';
 import { useSelector, useDispatch } from 'react-redux';
 import FlipBook from '@/components/Products/FlipBook';
 import type { RootState } from '../../store/store';
-import { BsBasket, BsTrash } from 'react-icons/bs';
+import Gallery from '@/components/Product/Gallery';
 import { separate } from '../../utils/seperator';
 import "react-toastify/dist/ReactToastify.css";
-import { BsChevronLeft } from 'react-icons/bs';
+import {RiSchoolFill} from 'react-icons/ri';
+import {FaBookOpen} from 'react-icons/fa';
+import {TbLanguage} from 'react-icons/tb';
 import { Product } from '@/models/Types';
 import { toast } from 'react-toastify';
+import { useRef } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 import Head from 'next/head';
-import NumericUpDown from '@/components/Products/NumericUpDown';
+
 
 
 interface IProps {
     product: Product
 }
 
+const convert_english_numbers_to_persisn = (s: any) => s.replace(/\d/g, (d: number) => '۰۱۲۳۴۵۶۷۸۹'[d])
+
 const ProductById = ({ product }: IProps) => {
+    const descriptionRef = useRef(null);
+    const warrantyRef = useRef(null);
+    const galleryRef = useRef(null);
+    
+    const description = JSON.parse(product.description);
+    let date = new Date(description.releaseData);
 
     const cartList = useSelector((state: RootState) => state.shopingCart.cartList)
-    console.log(cartList);
-    
     const dispatch = useDispatch()
     const isInShopingCart = cartList.find(item => item.productId === product._id);
+
     const handleAddToShopingCart = () => {
         dispatch(addToCart(({ productId: product._id, count: 1, price: product.price, image: product.images[0], name: product.name })));
         toast.success(`${product.name} به سبد خرید اضافه شد.`, {
@@ -45,6 +56,11 @@ const ProductById = ({ product }: IProps) => {
         });
     }
 
+
+    const handleSectionsClick = (element: any) => {
+        window.scrollTo({ top: element.current.offsetTop - 30, behavior: 'smooth' });
+    };
+
     return (
         <main className=''>
             <Head>
@@ -53,76 +69,177 @@ const ProductById = ({ product }: IProps) => {
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="icon" href="/Images/logo2.png" />
             </Head>
-            <Image alt='header' width={2000} height={1200}
-                className='object-cover w-full h-[70vh] lg:h-[60vh] mt-[4rem] lg:mt-[8.5rem]'
-                src={`http://localhost:8000/images/products/thumbnails/${product.thumbnail}`} />
+            <section className="w-full px-4 sm:px-8 lg:px-4 2xl:px-32 pt-8">
 
-            <div className="flex flex-col flex-wrap lg:flex-nowrap gap-2 w-full mt-[1rem] mx-auto px-4 lg:px-12 xl:px-">
-                <div className="w-full flex">
-                    <div className="text-md breadcrumbs">
-                        <ul className='flex items-center gap-2'>
-                            <li className='hover:text-primary transition-all'>
-                                <Link href={`/product/${product.category._id}/new?page=1`}>{product.category.name}</Link>
-                            </li>
-                            <BsChevronLeft />
-                            <li className='hover:text-primary transition-all'>
-                                <Link href={`/product/${product.category._id}/${product.subcategory._id}/new?page=1`}>{product.subcategory.name}</Link>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div className="w-full px-4 py-2 flex justify-center">
-                    <h1 className=' text-2xl xl:text-4xl font-semibold'>{product.name}</h1>
-                </div>
+                <div className=' rounded-lg bg-white shadow-md shadow-gray-300'>
 
-                <div className='flex flex-wrap lg:flex-nowrap w-full gap-16 items-center'>
+                    <div className='flex flex-col lg:flex-row gap-10 p-2 md:p-6 lg:p-8'>
 
-                    <div className=' flex justify-center w-full lg:block lg:w-auto'>
-                        <FlipBook images={product.images} />
-                    </div>
-                    <div className=''>
-                        <div className='flex justify-between mt-10'>
-                            <div className="flex items-center gap-2 text-lg">
-                                <span className='text-primary-focus'>{separate(product.price)}</span>
-                                <span >تومان</span>
+                        <div className="w-full lg:w-7/12 order-2 lg:order-1">
+                            <div className='flex flex-col justify-between gap-4 h-full'>
+
+                                <div className="flex items-center gap-2">
+                                    <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold">{product.name}</h1>
+                                    {product.quantity < 10 && product.quantity > 0 && <span className="text-sm sm:text-xl md:text-2xl whitespace-nowrap text-yellow-300">{"(تعداد محدود)"}</span>}
+                                    {product.quantity === 0 && <span className="text-sm sm:text-xl md:text-2xl whitespace-nowrap text-error">{"(موجود نمی باشد)"}</span>}
+                                </div>
+
+                                <div>
+                                    <p className="text-lg leading-10 text-gray-500 font-thin text-justify">
+                                        {description.shortSummery}
+                                    </p>
+                                </div>
+
+                                <div className='flex flex-col md:flex-row justify-between items-center gap-2'>
+                                    <div className="flex flex-wrap items-start gap-4 ">
+                                        {!isInShopingCart ?
+                                            (product.quantity ?
+                                                <button className='btn btn-primary btn-lg m-0'
+                                                    onClick={handleAddToShopingCart}>
+                                                    <BsBasket className="text-xl" />
+                                                    <div className="border-l-[1px] border-gray-200 "></div>
+                                                    <span className="text-md lg:text-lg font-thin">افزودن به سبد خرید</span>
+                                                </button> :
+                                                <button className='btn btn-primary ' disabled>
+                                                    <BsBasket className="text-xl" />
+                                                    <div className="border-l-[1px] border-gray-200 "></div>
+                                                    <span className="text-md lg:text-lg font-thin">افزودن به سبد خرید</span>
+                                                </button>) :
+                                            <NumericUpDown product={isInShopingCart} quantity={product.quantity} />
+                                        }
+                                    </div>
+                                    <div className="flex items-center gap-1">
+                                        <span className="text-3xl md:text-4xl font-semibold">{convert_english_numbers_to_persisn(separate(product.price))}</span>
+                                        <span className="text-xl md:text-2xl">تومان</span>
+                                    </div>
+
+                                </div>
+
                             </div>
                         </div>
 
-                        <div className="flex items-center gap-1 text-lg mt-6">
-                            {product.quantity > 1 ?
-                                <span className='text-green-500'>{product.quantity} عدد موجود هست</span> :
-                                <span className='text-red-500'>موجود نیست</span>}
+                        <div className='w-full lg:w-5/12 order-1 lg:order-2 overflow-hidden rounded-md '>
+                            <Image alt={product.name} width={800} height={800}
+                                className='w-full h-[20rem] rounded-md 
+                                object-cover transform transition duration-200 hover:scale-110'
+                                src={`http://localhost:8000/images/products/thumbnails/${product.thumbnail}`} />
                         </div>
 
-                        <div className="flex items-center gap-1 text-lg mt-6">
-                            <span>انتشارات : </span>
-                            <span>{product.brand}</span>
-                        </div>
-
-                        <div className="flex flex-wrap items-start gap-4 mt-20">
-                            {!isInShopingCart ?
-                                (product.quantity ?
-                                    <button className='btn btn-primary'
-                                        onClick={handleAddToShopingCart}>
-                                        <BsBasket className="text-xl" />
-                                        <div className="border-l-[1px] border-gray-200 "></div>
-                                        <span className="text-md lg:text-lg font-thin">افزودن به سبد خرید</span>
-                                    </button> :
-                                    <button className='btn btn-primary ' disabled>
-                                        <BsBasket className="text-xl" />
-                                        <div className="border-l-[1px] border-gray-200 "></div>
-                                        <span className="text-md lg:text-lg font-thin">افزودن به سبد خرید</span>
-                                    </button>) :
-                                    <NumericUpDown product={isInShopingCart} quantity={product.quantity}/>
-                            }
-                        </div>
                     </div>
 
-                    <div className=''>
-                        <div className="flex flex-col gap-8" dangerouslySetInnerHTML={{ __html: product.description }} />
-                    </div>
                 </div>
-            </div>
+                <div className="flex flex-wrap lg:flex-nowrap gap-4 mt-8">
+                    <div className="w-full lg:w-9/12 order-2 lg:order-1">
+                        <section className=" rounded-lg bg-white shadow-md shadow-gray-300 p-4">
+                            <ul className='flex gap-8'>
+                                <li className="text-sm md:text-md hover:text-primary transition-all cursor-pointer"
+                                    onClick={() => handleSectionsClick(descriptionRef)}>خلاصه ی کتاب</li>
+                                <li className="text-sm md:text-md hover:text-primary transition-all cursor-pointer"
+                                    onClick={() => handleSectionsClick(galleryRef)}>گالری</li>
+                                <li className="text-sm md:text-md hover:text-primary transition-all cursor-pointer"
+                                    onClick={() => handleSectionsClick(warrantyRef)}>گارانتی بازگشت وجه</li>
+                            </ul>
+                        </section>
+
+                        <section ref={descriptionRef} className=" rounded-lg bg-white shadow-md shadow-gray-300 p-4 md:p-6 lg:p-10 mt-8">
+                            <div className='flex flex-col gap-8'>
+                                <h2 className="text-2xl font-semibold text-primary">خلاصه ی کتاب</h2>
+                                <div className="text-md leading-10 text-gray-500" dangerouslySetInnerHTML={{ __html: description.longSummery }} />
+                                {/* <p className="text-md leading-10 text-gray-500 font-thin text-justify">{description.longSummery}</p> */}
+                            </div>
+                        </section>
+
+                        <section ref={galleryRef} className="rounded-lg bg-white shadow-md shadow-gray-300 p-4 md:p-6 lg:p-10 mt-8 mt-8">
+                            <div className="flex flex-col gap-5">
+                                <h2 className="text-2xl font-semibold text-primary mb-8">گالری</h2>
+                                <Gallery images={product.images.slice(1,product.images.length)} />
+                            </div>
+                        </section>
+
+                        <section ref={warrantyRef} className=" rounded-lg bg-white shadow-md shadow-gray-300 p-10 mt-8">
+                            <div className='flex flex-col gap-8'>
+                                <h2 className="text-2xl font-semibold text-primary">گارانتی بازگشت وجه</h2>
+                                <div className="flex flex-col md:flex-row  gap-4">
+                                    <div className="w-full md:w-4/12">
+                                        <img src="/Images/QA engineers-pana.svg" />
+                                    </div>
+                                    <div className="w-full md:w-8/12">
+                                        <p className=" text-md leading-10 text-gray-500 font-thin text-justify">
+                                            می بوک ضمانت میکند که تمام محصوالات با بالاترین کیفیت و بهترین قیمت به دست مشتری
+                                            میرسد و در صورتی که محصول دارای هرگونه مشکل از جمه چاپ نشدن بخشی از کتاب یا پارگی بخشی از کتاب
+                                            باشد محصول را پس میگیرد و تعویض میکند.
+                                        </p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </section>
+
+                    </div>
+                    <div className="w-full lg:w-3/12 order-1 lg:order-2">
+
+                        <section className="rounded-lg bg-white shadow-md shadow-gray-300 p-4">
+                            <div className="flex items-center gap-2">                              
+                                <div className="rating rating-md" dir="ltr">                                   
+                                    <input type="radio" name="rating-5" className="mask mask-star-2 bg-orange-400"  />
+                                    <input type="radio" name="rating-5" className="mask mask-star-2 bg-orange-400" />
+                                    <input type="radio" name="rating-5" className="mask mask-star-2 bg-orange-400" />
+                                    <input type="radio" name="rating-5" className="mask mask-star-2 bg-orange-400" />
+                                    <input type="radio" name="rating-5" className="mask mask-star-2 bg-orange-400"  />
+                                </div>
+                                <span>
+                                    {`(${convert_english_numbers_to_persisn("4")}/${convert_english_numbers_to_persisn("5")})`}
+                                </span>
+                                <span>{`از ${convert_english_numbers_to_persisn("57")} رای` }</span>
+                            </div>                                               
+                        </section>
+
+                        <section className="mt-8">
+                                <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-3 gap-2"> 
+                                    <div className="rounded-md bg-white shadow-md shadow-gray-300 p-2 flex flex-col items-center gap-2 ">
+                                        <FaBookOpen className="text-primary text-2xl"/>
+                                        <span className='text-xs font-thin text-gray-400'>تعداد صفحه</span>
+                                        <span className="text-xs font-bold">{convert_english_numbers_to_persisn(description.pages)}</span>
+                                    </div>
+                                    <div className="rounded-md bg-white shadow-md shadow-gray-300 p-2 flex flex-col items-center gap-2">
+                                        <RiSchoolFill className="text-primary text-2xl"/>
+                                        <span className='text-xs font-thin text-gray-400'>انتشارات</span>
+                                        <span className="text-xs font-bold">{product.brand}</span>
+                                    </div>
+                                    <div className="rounded-md bg-white shadow-md shadow-gray-300 p-2 flex flex-col items-center gap-2">
+                                        <BsFillCalendarDateFill className="text-primary text-2xl"/>
+                                        <span className='text-xs font-thin text-gray-400'>تاریخ انتشار</span>
+                                        <span className="text-xs font-bold">{date.toLocaleDateString("fa", { year: "numeric", month: "2-digit", day: "2-digit" })}</span>
+                                    </div>
+                                    <div className="rounded-md bg-white shadow-md shadow-gray-300 p-2 flex flex-col items-center gap-2">
+                                        <BsCalendar2RangeFill className="text-primary text-2xl"/>
+                                        <span className='text-xs font-thin text-gray-400'>رنج سنی</span>
+                                        <span className="text-xs font-bold">
+                                            {`${convert_english_numbers_to_persisn(description.minAge)}
+                                             تا 
+                                             ${convert_english_numbers_to_persisn(description.maxAge)}`}
+                                            </span>
+                                    </div>
+                                    <div className="rounded-md bg-white shadow-md shadow-gray-300 p-2 flex flex-col items-center gap-2">
+                                        <TbLanguage className="text-primary text-2xl"/>
+                                        <span className='text-xs font-thin text-gray-400'>زبان</span>
+                                        <span className="text-xs font-bold">{description.bookLag}</span>
+                                    </div>
+                                </div>                                                                                         
+                        </section>
+
+                        <section className="rounded-lg bg-white shadow-md shadow-gray-300 p-4 mt-8">
+                            <div className="flex flex-col items-center gap-2">                              
+                               <BsPersonCircle className="text-5xl text-primary"/>
+                               <span className="text-xl font-semibold">{description.writer}</span>
+                               <span className="text-sm text-gray-400">نویسنده</span>
+                               <p className="text-sm text-gray-400 leading-7">{description.aboutWriter}</p>
+                            </div>                                               
+                        </section>
+                    </div>
+
+                </div>
+            </section>
         </main>
     )
 }
@@ -139,7 +256,7 @@ export const getStaticProps = async (context: any) => {
 }
 
 export const getStaticPaths = async () => {
-    const products = await getAllProducts();
+    const products = await getAllProducts(100);
     const paths = products.map((item) => ({ params: { productId: item._id } }));
 
     return {

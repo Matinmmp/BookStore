@@ -24,13 +24,6 @@ const payment = () => {
                             count: item.count
                         }
                     });
-                    // const order = {
-                    //     user: user._id,
-                    //     products: products,
-                    //     deliveryStatus: false,
-                    //     deliveryDate: info.deliveryData as 
-                    // }
-                    // console.log(order);
                    const order= {
                         "user": user._id,
                         "products": products,
