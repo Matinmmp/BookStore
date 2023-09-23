@@ -47,9 +47,9 @@ const login = () => {
     }
 
     return (
-        <div className="w-full h-screen flex items-center justify-center">
+        <div className="w-full h-screen flex items-center justify-center ">
             <form onSubmit={handleSubmit(onSubmit)}
-                className="flex flex-col p-8 rounded-md  border-[0px] lg:border-[1px] lg:border-gray-300 w-full lg:w-[25rem]">
+                className="flex flex-col p-8 rounded-md  border-[0px] lg:border-[1px] lg:bg-white w-full lg:w-[25rem]">
                 <div className="flex justify-center w-full ">
                     <Link href={'/'}   >
                         <Image alt="لوگو" src={'/Images/logo2.png'} width={300} height={200} className="w-24 h-16" />

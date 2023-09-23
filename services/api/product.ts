@@ -25,17 +25,9 @@ export const getProductByCategoryId = async (categoryId: String, limit: Number, 
 }
 
 
-export const getLastProduct = async (categoryId:any, subCategoryId:any, limit: Number, page: Number) => {
-    let response: any;
-
-    if (categoryId && !subCategoryId)
-        response = await publicAxios.get(`/products?category=${categoryId}&limit=${limit}&sort=-createdAt&page=${page}`)
-    if (subCategoryId && !categoryId)
-        response = await publicAxios.get(`/products?subcategory=${categoryId}&limit=${limit}&sort=-createdAt&page=${page}`)
-    if (!!categoryId && !!subCategoryId)
-        response = await publicAxios.get(`/products?category=${categoryId}&subcategory=${categoryId}&limit=${limit}&sort=-createdAt&page=${page}`)
-    else
-        response = await publicAxios.get(`/products?&limit=${limit}&sort=-createdAt&page=${page}`)
+export const getLastProduct = async (categoryId:any, subCategoryId:any,exist:any,price:any, limit: Number, page: Number) => {
+    const url =`/products?&limit=${limit}&sort=-createdAt&page=${page}${!exist ? '&quantity[gt]=0':''}${price ? '&price[lte]='+price:''}${categoryId ? '&category='+categoryId:''} ${subCategoryId ? '&subcategory='+subCategoryId:''}`;
+    const response = await publicAxios.get(url)
 
     return await
         {

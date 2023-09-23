@@ -21,7 +21,7 @@ const CategorisSlider = ({ categories }: IProps) => {
     })
 
     return (
-        <section className='w-full px-4 pt-4 mt-[2rem] mb-[2rem]'>
+        <section id='categorySlider' className='w-full px-4 pt-4 mt-[2rem] mb-[2rem]'>
             <div className='text-4xl font-semibold'>دسته بندی ها </div>
             <div ref={sliderRef} className="keen-slider h-[20rem] py-4 mt-8">
                 {categories.map((category) =>

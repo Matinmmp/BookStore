@@ -6,7 +6,7 @@ import Banner from '@/components/Home/Banner';
 import Comments from '../components/Home/Comments';
 import CategorisSlider from '@/components/Home/CategorisSlider';
 import { getAllCategories } from '@/services/api/category';
- 
+import {useRef} from 'react';
 
 
 interface IProps {

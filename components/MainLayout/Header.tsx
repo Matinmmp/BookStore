@@ -13,6 +13,7 @@ import Link from "next/link";
 import { IoLogIn } from 'react-icons/io5';
 import { BsPersonFillAdd } from 'react-icons/bs';
 import { IoIosArrowDown } from 'react-icons/io';
+import { BsPersonCircle } from 'react-icons/bs';
 
 
 
@@ -63,7 +64,9 @@ const Header = () => {
         setCartList(list);
     }, [list]);
 
-
+    const handleSectionsClick = (element: any) => {
+        window.scrollTo({ top: element.current.offsetTop - 30, behavior: 'smooth' });
+    };
     return (
         <header className="w-full px-4 sm:px-8 lg:px-4 2xl:px-32 pt-8">
             <div className='bg-base-100 p-8 px-4 lg:px-12 rounded-2xl'>
@@ -93,19 +96,25 @@ const Header = () => {
                         </div>
 
                         <div>
-                            <div className="rounded-lg flex cursor-pointer bg-base-300 w-[10rem] h-[2.5rem] text-primary">
-                                <span className=" hover:bg-primary hover:bg-opacity-70 hover:text-white transition-all rounded-s-lg 
-                                    text-primary h-full flex items-center justify-center gap-1 px-4 me-[-.8rem] text-sm">
-                                    <span>ورود</span>
-                                    <IoLogIn className="text-2xl" />
-                                </span>
-                                <span className=" ms-auto rounded-lg bg-primary hover:bg-opacity-70 transition-all 
-                                 h-full flex items-center justify-center gap-1 px-3 text-white text-sm">
-                                    عضویت
-                                    <BsPersonFillAdd className="text-xl" />
-                                </span>
+                            {user ?
+                                <button onClick={() => dispatch(setUser(''))} className="btn btn-primary flex items-center gap-2 ">
+                                    <HiOutlineLogout className="text-2xl" style={{ transform: 'rotateY(180deg)' }} />
+                                    <span className="font-semibold text-sm">خروج </span>
+                                </button> :
+                                <Link href={'/user/login'} className="rounded-lg flex cursor-pointer bg-base-300 w-[10rem] h-[2.5rem] text-primary">
+                                    <span className=" hover:bg-primary hover:bg-opacity-70 hover:text-white transition-all rounded-s-lg 
+                                        text-primary h-full flex items-center justify-center gap-1 px-4 me-[-.8rem] text-sm">
+                                        <span>ورود</span>
+                                        <IoLogIn className="text-2xl" />
+                                    </span>
+                                    <span className=" ms-auto rounded-lg bg-primary hover:bg-opacity-70 transition-all 
+                                         h-full flex items-center justify-center gap-1 px-3 text-white text-sm">
+                                        عضویت
+                                        <BsPersonFillAdd className="text-xl" />
+                                    </span>
+                                </Link>
+                            }
 
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -117,8 +126,8 @@ const Header = () => {
                         دسته بندی ها
                         <IoIosArrowDown className="text-lg" />
                     </Link>
-                    <Link href={'/'} className="hover:text-primary transition-all">درباره ی ما</Link>
-                    <Link href={'/'} className="hover:text-primary transition-all">ارتباط با ما</Link>
+                    <Link href={'/about'} className="hover:text-primary transition-all">درباره ی ما</Link>
+                    <Link href={'/contact'} className="hover:text-primary transition-all">ارتباط با ما</Link>
 
                 </div>
             </div>

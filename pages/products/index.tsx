@@ -15,13 +15,14 @@ import React from 'react';
 const Products = () => {
     const route = useRouter();
 
-    const { page = 1, categoryId, subCategoryId, minPrice, maxPrice, isExist } = route.query;
+    const { page = 1, category, subCategory, range, exist } = route.query;
     let { data, isLoading } = useQuery({
-        queryKey: ['products', page, categoryId, subCategoryId, minPrice, maxPrice, isExist],
-        queryFn: () => getLastProduct(categoryId, subCategoryId, 6, Number(page))
+        queryKey: ['products', page,  category, subCategory, range, exist],
+        queryFn: () => getLastProduct(category, subCategory,exist,range, 6, Number(page))
     });
 
-    // console.log(page)
+ 
+        
 
     const handleChangePage = (number: Number) => {
         const { query } = route;
@@ -36,8 +37,8 @@ const Products = () => {
 
     return (
         <main className=' mt-16 mx-auto xl:px-16 flex justify-center md:justify-normal w-full px-4 sm:px-8 lg:px-4 2xl:px-32 pt-8'>
-            <div className='w-full flex gap-8'>
-                <div className="w-full lg:w-4/12 xl:w-3/12 hidden lg:block">
+            <div className='w-full flex flex-wrap lg:flex-nowrap gap-8'>
+                <div className="w-full lg:w-4/12 xl:w-3/12 ">
                     <Filter />
                 </div>
                 <div className="w-full lg:w-8/12 xl:w-9/12 flex flex-col gap-4">
