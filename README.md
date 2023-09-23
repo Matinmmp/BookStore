@@ -19,12 +19,12 @@ pnpm dev
 
 
 قسمت هایی از سایت
-![Capture1](https://github.com/Matinmmp/BookStore/assets/127874061/e3da98ca-a310-419d-af82-5e0f31975a09)
-![Capture4](https://github.com/Matinmmp/BookStore/assets/127874061/4ca76846-4f4d-47e6-af93-1f46e27c872b)
-![Capture3](https://github.com/Matinmmp/BookStore/assets/127874061/cb480e6d-28cf-4a2d-8520-4891f9ec7f89)
-![Capture2](https://github.com/Matinmmp/BookStore/assets/127874061/797c4319-03e1-4d98-881b-87fcedad0736)
-![Capture9](https://github.com/Matinmmp/BookStore/assets/127874061/1670a33f-f34e-4136-9d56-fc754524d944)
-![Capture8](https://github.com/Matinmmp/BookStore/assets/127874061/9f5e49b2-15bc-4d26-b7d8-04ba67d596b3)
-![Capture7](https://github.com/Matinmmp/BookStore/assets/127874061/a9fe3806-130a-4718-8be7-7d0260c46fe9)
-![Capture6](https://github.com/Matinmmp/BookStore/assets/127874061/579e1d0c-2c2b-48c5-ba70-b4b830facc40)
-![Capture5](https://github.com/Matinmmp/BookStore/assets/127874061/ccb2bf17-fda4-44f0-9113-e4af23739f5f)
+![Capture4](https://github.com/Matinmmp/BookStore/assets/127874061/6cadf4a4-9c8a-4b8f-bbcb-417391eef06c)
+![Capture3](https://github.com/Matinmmp/BookStore/assets/127874061/9040667a-9038-4b4e-8560-6f97ec65d579)
+![Capture2](https://github.com/Matinmmp/BookStore/assets/127874061/ee09eb75-30d7-4d8f-907f-87cf075fa042)
+![Capture1](https://github.com/Matinmmp/BookStore/assets/127874061/b3149da4-ed7f-4ccd-8369-a5d4b419c635)
+![Capture9](https://github.com/Matinmmp/BookStore/assets/127874061/77569eef-c2c2-4294-aa7f-16a16c730ec4)
+![Capture8](https://github.com/Matinmmp/BookStore/assets/127874061/58267110-e223-4356-90c1-f0bbb68bebd2)
+![Capture7](https://github.com/Matinmmp/BookStore/assets/127874061/9cdb43ff-213c-4767-898e-43075404277a)
+![Capture6](https://github.com/Matinmmp/BookStore/assets/127874061/8ef302be-72f1-4f39-8bd5-c6839d6923bc)
+![Capture5](https://github.com/Matinmmp/BookStore/assets/127874061/b130d4a3-5692-4143-b9d2-d1ada62699ef)
