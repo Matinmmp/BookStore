@@ -24,6 +24,7 @@ const Header = () => {
     const [cartList, setCartList] = useState<Cart[]>([]);
     const router = useRouter();
     const dispatch = useDispatch()
+
     const handleLocalStorageForShopingCart = () => {
         if (typeof window !== 'undefined') {
             if (localStorage.getItem('ShopingCart')) {
@@ -31,7 +32,7 @@ const Header = () => {
                 dispatch(initialCart(info))
             }
             else {
-                localStorage.setItem("ShopingCart", '[]');
+                localStorage.setItem("ShopingCart", '{}');
                 dispatch(initialCart('' as any))
             }
         }
@@ -91,7 +92,7 @@ const Header = () => {
                                 style={{ transform: 'rotateY(180deg)' }}>
                                 <FiShoppingCart className="text-2xl" onClick={handleCart} />
                             </div>
-                            {cartList.length > 0 ? <span className="px-[5px] rounded-[3px] bottom-0 right-0 text-white
+                            {cartList && cartList.length > 0 ? <span className="px-[5px] rounded-[3px] bottom-0 right-0 text-white
                                  text-[10px] leading-4 bg-primary absolute">{cartList.length}</span> : ''}
                         </div>
 

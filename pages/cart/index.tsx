@@ -22,9 +22,10 @@ const index = () => {
     const router = useRouter();
 
     let totalPrice = 0;
-    for (const item of list) {
-        totalPrice += item.count * item.price
-    }
+    console.log(list)
+    // for (const item of list) {
+    //     totalPrice += item.count * item.price
+    // }
     const handleSubmit=()=>{
         if(!user){
             router.push('/user/login');

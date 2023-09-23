@@ -28,6 +28,7 @@ export const shopingCartSlice = createSlice({
     initialState,
     reducers: {
         addToCart(state, action: PayloadAction<Cart>) {
+            console.log(state.cartList)
             const isExistedProductInCart = state.cartList.find((item) => item.productId === action.payload.productId)
             if (isExistedProductInCart) {
                 state.cartList = state.cartList.map((item) => {
@@ -79,11 +80,9 @@ export const shopingCartSlice = createSlice({
             saveToLocalStorage(state);  
         },
         initialCart(state, action:any) {
-            state.cartList = action.payload.cartList;
-            state.address = action.payload.address;
-            state.deliveryData = action.payload.deliveryData;
-
-            // saveToLocalStorage(state); 
+            state.cartList = action.payload.cartList !== false ? action.payload.cartList : [];
+            state.address = action.payload.address !== false ? action.payload.address : '';
+            state.deliveryData = action.payload.deliveryData !== false ? action.payload.deliveryData : '';
         }
 
     },

@@ -38,7 +38,7 @@ const address = () => {
 
     const onSubmit: SubmitHandler<Inputs> = (data) => {
         dispatch(addDate({address:getValues('address'),deliveryData:date}));
-        router.push('http://localhost:5173/');
+        router.push('http://localhost:5174/');
     }
 
     useEffect(() => {

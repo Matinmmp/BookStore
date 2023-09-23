@@ -18,7 +18,7 @@ const MobileSidbar = () => {
                     <AiOutlineHome className="w-6 h-6" />
                     <span className="text-sm">خانه</span>
                 </Link>
-                <Link href={'/product/64dd173b0e366d6edaece779/new?page=1'}className="flex flex-col items-center gap-1">
+                <Link href={'/products'}className="flex flex-col items-center gap-1">
                     <BiCategory className="w-6 h-6" />
                     <span className="text-sm">دسته بندی</span>
                 </Link>
@@ -29,7 +29,7 @@ const MobileSidbar = () => {
                             style={{ transform: 'rotateY(180deg)' }}>
                             <FiShoppingCart className="w-6 h-6"  />
                         </div>
-                        {list.length > 0 ? <span className="px-[5px] rounded-[3px] bottom-0 right-0 text-white
+                        {list && list.length > 0 ? <span className="px-[5px] rounded-[3px] bottom-0 right-0 text-white
                                  text-[10px] leading-4 bg-primary absolute">{list.length}</span> : ''}
                     </div>
                     <span className="text-sm">سبد خرید</span>
